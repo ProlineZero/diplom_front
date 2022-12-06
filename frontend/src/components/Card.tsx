@@ -11,18 +11,18 @@ export function Card() {
       <img src={testSrc} alt="adidas" className="w-full h-50 rounded-lg"/>
       </div>
         
-        <div className="p-4 m-3 bg-red-200 rounded-lg">
-            <p className="text-xl font-bold text-red-500 ">
+        <div className="p-4 m-3 bg-red-600 rounded-lg">
+            <p className="text-xl font-bold text-red-100 ">
                 Два ведра 
             </p> 
-            <p className="text-xs text-red-500">
+            <p className="text-xs text-red-100">
                 ЯпоRussia (я параша)
             </p>
             <div className="flex items-center justify-between ">
-                <p className="text-red-500">
+                <p className="text-red-100">
                     2002-2022 
                 </p>
-                <button type="button" className="w-10 h-10 text-base font-medium text-red-400 bg-red-200 rounded-full hover:text-red-700">
+                <button type="button" className="w-10 h-10 text-base font-medium text-red-400 bg-red-600 rounded-full hover:text-red-100">
                   <HandySvg
                       src={likeIconSrc}
                       className="m-auto"
