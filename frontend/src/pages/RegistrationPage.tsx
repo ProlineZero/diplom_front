@@ -6,11 +6,11 @@ export function RegistrationPage() {
   return (
     <>
 
-      <Navigation numPressedBtn={-1}/>
+      {/* <Navigation numPressedBtn={-1}/> */}
 
       <div className="fixed bg-gray-100 w-5/12 h-1/2 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 rounded-3xl">
         <div className="container w-1/2 space-y-3 fixed inline-block text-left left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-          <h2 className="text-3xl text-center text-indigo-500">Car Guide</h2>
+          <h2 className="text-3xl text-center text-red-500">Car Guide</h2>
           <h1 className='text-2xl text-center text-gray-500'>Регистрация</h1>
           <div className="w-full">
                   <div className="flex gap-4 mb-2">
@@ -24,7 +24,7 @@ export function RegistrationPage() {
                     <InputString title='' placeholder = 'Придумайте пароль' name = 'password' />
                   </div>
                   <div className="flex w-full my-4">
-                  <button className=" w-full px-2 py-1 transition ease-in duration-200 uppercase rounded-full text-indigo-700 hover:bg-indigo-600 hover:text-white border-2 border-indigo-700 focus:outline-none">
+                  <button className=" w-full px-2 py-1 transition ease-in duration-200 uppercase rounded-full text-red-700 hover:bg-red-600 hover:text-white border-2 border-red-700 focus:outline-none">
                     Зарегистрироваться
                   </button>
                   </div>
