@@ -4,6 +4,7 @@ import {HandySvg} from "handy-svg"
 import carsIconSrc from "../icons/car.svg"
 import likeIconSrc from "../icons/like.svg"
 import mainIconSrc from "../icons/main.svg"
+import { Search } from './Search'
 
 
 interface INavigation {
@@ -13,17 +14,35 @@ interface INavigation {
 export function Navigation({numPressedBtn}: INavigation) {
 
 
-    const btnOnClassName = "w-full hover:text-red-800 hover:bg-red-100 flex items-center p-2 my-6 transition-colors duration-200 border-4 shadow rounded-full border-red-200 text-red-800 bg-red-100 "
-    const btnOffClassName = "w-full hover:text-red-800 hover:bg-red-100 flex items-center p-2 my-6 transition-colors duration-200 rounded-full text-red-100 "
+    const btnOnClassName = "w-full hover:text-red-800 hover:bg-gray-300 flex items-center p-2 my-6 transition-colors duration-200 border-4 shadow rounded-full border-gray-400/50 text-red-800 bg-gray-300 "
+    const btnOffClassName = "w-full hover:text-red-800 hover:bg-gray-300 flex items-center p-2 my-6 transition-colors duration-200 rounded-full text-red-800 "
 
 
   return (
     
     <>
 
-<div className="bg-red-700 fixed w-full min-h-[50px] h-[10%] text-right">
+
+<div className="bg-red-700 fixed w-full min-h-[5rem] h-[10%] text-right">
+    <div className="flex items-center mt-2 ml-5 justify-start">
+        <a className="text-red-100">
+            <HandySvg
+                src={mainIconSrc}
+                className="m-auto"
+                width="5rem"
+                height="5rem"
+                fill="currentColor"/>
+        </a>
+        <span className="text-red-100 ml-4 text-2xl font-bold">
+            Car Guide
+        </span>
+    
+    <div className=" items-center ml-[7%] w-[30%] min-w-[17rem]">
+        <Search/>
+    </div>
+    </div>
     <nav >
-        <div className="fixed top-[4%] w-full">
+        <div className="fixed top-[2.2rem] w-full">
             <a className= "hover:bg-red-100 text-red-100 hover:text-red-800 mx-3 px-3 py-1 rounded-full border-2 border-white text-base font-medium" href="/authorization">
                 Вход
             </a>
@@ -39,23 +58,10 @@ export function Navigation({numPressedBtn}: INavigation) {
     </nav>
 </div>
 
-    <div className="fixed bg-red-700 h-full min-w-[150px] sm:min-w-[200px] w-[17%] sm:w-[17%]">
+    <div className="fixed rounded-3xl bg-gray-300/70 h-[70%] min-w-[150px] sm:min-w-[200px] top-[20%] w-[17%] sm:w-[17%]">
 
         <div className="flex flex-col sm:flex-row sm:justify-around">
             <div className="w-full h-full">
-                <div className="flex items-center justify-start mx-6 mt-10">
-                    <a className="text-red-100">
-                        <HandySvg
-                            src={mainIconSrc}
-                            className="m-auto"
-                            width="70"
-                            height="70"
-                            fill="currentColor"/>
-                    </a>
-                    <span className="text-red-100  ml-4 text-2xl font-bold">
-                        Car Guide
-                    </span>
-                </div>
                 <nav className="mt-10 px-6 ">
                     <a className= {(numPressedBtn == 0) ? btnOnClassName : btnOffClassName} href="\">
                         <HandySvg
@@ -87,7 +93,6 @@ export function Navigation({numPressedBtn}: INavigation) {
             </div>
         </div>
     </div>
-
     
 
     </>

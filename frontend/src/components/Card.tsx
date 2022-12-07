@@ -6,7 +6,7 @@ import {HandySvg} from "handy-svg"
 export function Card() {
   return (
     
-    <div className="w-80 p-2 m-6 bg-white shadow-lg rounded-2xl">
+    <div className="w-80 p-2 m-6 bg-white hover:shadow-xl shadow-2xl hover:shadow-black/50 shadow-black/50 rounded-2xl">
       <div className="m-3">
       <img src={testSrc} alt="adidas" className="w-full h-50 rounded-lg"/>
       </div>

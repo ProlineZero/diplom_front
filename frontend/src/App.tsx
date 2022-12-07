@@ -12,14 +12,12 @@ function App() {
   return (
 
     <>
-      
       <Routes>
         <Route path="/" element={ <CarsPage/> } />
         <Route path="/authorization" element={ <AuthorizationPage/> } />
         <Route path="/registration" element={ <RegistrationPage/> } />
         <Route path="/favorites" element={ <FavoritesPage/> } />
       </Routes> 
-
 
     </>
    

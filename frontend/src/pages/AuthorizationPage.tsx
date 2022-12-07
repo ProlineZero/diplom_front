@@ -7,9 +7,8 @@ export function AuthorizationPage() {
   return (
     <>
       {/* <Navigation numPressedBtn={-1}/> */}
-
       <div
-        className = "fixed bg-gray-100 w-5/12 h-1/2 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 rounded-3xl border-l-2 border-r-2 border-red-600">
+        className = "fixed bg-gray-100 w-5/12 h-1/2 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 rounded-3xl border-l-2 border-r-2 border-red-600 shadow-2xl shadow-black/50">
       
       <div className="container w-1/2 space-y-3 fixed inline-block text-left left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
         <h2 className="text-3xl text-center text-red-700">Car Guide</h2>
@@ -26,6 +25,7 @@ export function AuthorizationPage() {
         </button>
       </div>
     </div>
+
     </>
     
   )
