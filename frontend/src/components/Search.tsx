@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Filters } from "./Filters"
 import { Modal } from './Modal'
 
 export function Search() {
@@ -6,7 +7,7 @@ export function Search() {
   return (
     <>
     {modal && <Modal title = "Фильтры" onClose={() => setModal(false)}>
-        <p className="text-center">Ебанные блять фильтры</p>
+        <Filters/>
       </Modal>}
 
     <div className="relative z-20 flex flex-col justify-center h-full px-3 mx-auto flex-center">
