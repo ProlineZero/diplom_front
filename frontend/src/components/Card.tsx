@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useState } from "react"
 import testSrc from "../icons/test.jpg"
 import likeIconSrc from "../icons/like.svg"
 import {HandySvg} from "handy-svg"
+import { Modal } from './Modal'
+import { ExtendedCard } from "./ExtendedCard"
 
 export function Card() {
+
+  const  [modal, setModal] = useState(false)
+
   return (
-    
-    <div className="w-80 p-2 m-6 bg-white hover:shadow-xl shadow-2xl hover:shadow-black/50 shadow-black/50 rounded-2xl">
+    <>
+    {modal && <Modal title = "Фильтры" onClose={() => setModal(false)}>
+        <ExtendedCard/>
+      </Modal>}
+
+    <div className="w-80 p-2 m-6 bg-white hover:shadow-xl shadow-2xl hover:shadow-black/50 shadow-black/50 rounded-2xl" onClick={() => setModal(true)}>
       <div className="m-3">
       <img src={testSrc} alt="adidas" className="w-full h-50 rounded-lg"/>
       </div>
@@ -33,6 +42,6 @@ export function Card() {
             </div>
         </div>
     </div>
-
+    </>
   )
 }

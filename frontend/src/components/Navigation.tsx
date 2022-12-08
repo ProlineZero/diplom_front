@@ -37,18 +37,18 @@ export function Navigation({numPressedBtn}: INavigation) {
             Car Guide
         </span>
     
-    <div className=" items-center ml-[7%] w-[30%] min-w-[17rem]">
+    <div className="  ml-[7%] w-[30%] min-w-[17rem]">
         <Search/>
     </div>
     </div>
     <nav >
-        <div className="fixed top-[2.2rem] w-full">
-            <a className= "hover:bg-red-100 text-red-100 hover:text-red-800 mx-3 px-3 py-1 rounded-full border-2 border-white text-base font-medium" href="/authorization">
+        <div className="fixed top-[2.2rem] w-full items-center">
+            <a className= "align-middle hover:bg-red-100 text-red-100 hover:text-red-800 mx-4 px-3 py-1 rounded-full border-2 border-white text-base font-medium " href="/authorization">
                 Вход
             </a>
 
 
-            <a className="hover:bg-red-100 text-red-100 hover:text-red-800 mr-10 px-3 py-1 rounded-full border-2 border-white text-base font-medium" href="/registration">
+            <a className="align-middle hover:bg-red-100 text-red-100 hover:text-red-800 mr-10 px-3 py-1 rounded-full border-2 border-white text-base font-medium" href="/registration">
                 Регистрация
             </a>
 
@@ -58,9 +58,9 @@ export function Navigation({numPressedBtn}: INavigation) {
     </nav>
 </div>
 
-    <div className="fixed rounded-3xl bg-gray-300/70 h-[70%] min-w-[150px] sm:min-w-[200px] top-[20%] w-[17%] sm:w-[17%]">
+    <div className="fixed rounded-r-3xl bg-gray-300/70 h-[70%] min-w-[150px] sm:min-w-[200px] top-[20%] w-[17%] sm:w-[17%]">
 
-        <div className="flex flex-col sm:flex-row sm:justify-around">
+        <div className="flex flex-row justify-around">
             <div className="w-full h-full">
                 <nav className="mt-10 px-6 ">
                     <a className= {(numPressedBtn == 0) ? btnOnClassName : btnOffClassName} href="\">
@@ -70,7 +70,7 @@ export function Navigation({numPressedBtn}: INavigation) {
                             width="20"
                             height="20"
                             fill="currentColor"/>
-                        <span className="mx-4 text-lg font-normal">
+                        <span className="mx-4 text-lg font-medium">
                             Машины
                         </span>
                         <span className="flex-grow text-right">
@@ -83,7 +83,7 @@ export function Navigation({numPressedBtn}: INavigation) {
                             width="20"
                             height="20"
                             fill="currentColor"/>
-                        <span className="mx-4 text-lg font-normal">
+                        <span className="mx-4 text-lg font-medium">
                             Избранное
                         </span>
                         <span className="flex-grow text-right">
