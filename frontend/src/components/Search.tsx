@@ -6,11 +6,9 @@ export function Search() {
   const  [modal, setModal] = useState(false)
   return (
     <>
-    {modal && <Modal title = "Фильтры" onClose={() => setModal(false)}>
-        <Filters/>
-      </Modal>}
-
-    <div className="relative z-20 flex flex-col justify-center h-full px-3 mx-auto flex-center">
+    
+    
+    <div className="relative flex flex-col justify-center h-full px-3 mx-auto flex-center">
       <div className="relative flex items-center w-full pl-1 ">
         <div className="container relative left-0 z-50 flex w-3/4 l">
           <div className="relative flex items-center w-full h-full ">
@@ -36,6 +34,11 @@ export function Search() {
       </div>
     </div>
 
+    <div className = 'z-70'>
+    {modal && <Modal onClose={() => setModal(false)}>
+        <Filters/>
+      </Modal>}
+    </div>
     
 
     </>

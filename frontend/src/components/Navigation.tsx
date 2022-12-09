@@ -8,10 +8,11 @@ import { Search } from './Search'
 
 
 interface INavigation {
-    numPressedBtn: number
+    numPressedBtn?: number
+    searchIsVisible?: boolean
   }
 
-export function Navigation({numPressedBtn}: INavigation) {
+export function Navigation({numPressedBtn, searchIsVisible = true}: INavigation) {
 
 
     const btnOnClassName = "w-full hover:text-red-800 hover:bg-gray-300 flex items-center p-2 my-6 transition-colors duration-200 border-4 shadow rounded-full border-gray-400/50 text-red-800 bg-gray-300 "
@@ -23,7 +24,7 @@ export function Navigation({numPressedBtn}: INavigation) {
     <>
 
 
-<div className="bg-red-700 fixed w-full min-h-[5rem] h-[10%] text-right">
+<div className="bg-red-700 fixed z-10 w-full min-h-[5rem] h-[10%] text-right">
     <div className="flex items-center mt-2 ml-5 justify-start">
         <a className="text-red-100">
             <HandySvg
@@ -37,9 +38,9 @@ export function Navigation({numPressedBtn}: INavigation) {
             Car Guide
         </span>
     
-    <div className="  ml-[7%] w-[30%] min-w-[17rem]">
+    {searchIsVisible && <div className=" z-20 ml-[7%] w-[30%] min-w-[17rem]">
         <Search/>
-    </div>
+    </div>}
     </div>
     <nav >
         <div className="fixed top-[2.2rem] w-full items-center">
@@ -58,7 +59,7 @@ export function Navigation({numPressedBtn}: INavigation) {
     </nav>
 </div>
 
-    <div className="fixed rounded-r-3xl bg-gray-300/70 h-[70%] min-w-[150px] sm:min-w-[200px] top-[20%] w-[17%] sm:w-[17%]">
+    <div className="fixed z-0 rounded-r-3xl bg-gray-100/70 h-[70%] min-w-[150px] sm:min-w-[200px] top-[20%] w-[17%] sm:w-[17%] border-r-2 border-red-600 shadow-2xl shadow-black/50">
 
         <div className="flex flex-row justify-around">
             <div className="w-full h-full">

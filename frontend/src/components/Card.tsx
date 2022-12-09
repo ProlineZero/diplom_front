@@ -3,7 +3,6 @@ import testSrc from "../icons/test.jpg"
 import likeIconSrc from "../icons/like.svg"
 import {HandySvg} from "handy-svg"
 import { Modal } from './Modal'
-import { ExtendedCard } from "./ExtendedCard"
 
 export function Card() {
 
@@ -11,13 +10,13 @@ export function Card() {
 
   return (
     <>
-    {modal && <Modal title = "Фильтры" onClose={() => setModal(false)}>
+    {/* {modal && <Modal title = "Фильтры" onClose={() => setModal(false)}>
         <ExtendedCard/>
-      </Modal>}
+      </Modal>} */}
 
-    <div className="w-80 p-2 m-6 bg-white hover:shadow-xl shadow-2xl hover:shadow-black/50 shadow-black/50 rounded-2xl" onClick={() => setModal(true)}>
+    <div className="w-[90%] h-[90%] p-2 m-6 bg-white hover:shadow-xl shadow-2xl hover:shadow-black/50 shadow-black/50 rounded-2xl" onClick={() => setModal(true)}>
       <div className="m-3">
-      <img src={testSrc} alt="adidas" className="w-full h-50 rounded-lg"/>
+      <img src={testSrc} className="w-full h-50 rounded-lg"/>
       </div>
         
         <div className="p-4 m-3 bg-red-600 rounded-lg">

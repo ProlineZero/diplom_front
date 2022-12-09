@@ -2,26 +2,19 @@ import React from 'react'
 
 interface ModalProps {
   children: React.ReactNode
-  title: string 
+  transparency?: boolean
   onClose: () => void
 }
 
-export function Modal({children, title, onClose}: ModalProps) {
+export function Modal({children, onClose, transparency}: ModalProps) {
   return (
     <>
       <div
-        className = "fixed bg-black/50 left-0 top-[10%] w-full h-full" onClick={onClose}
-      />
-
-      {/* <div
-        className="fixed w-[500px] p-5 rounded bg-white top-[20%] left-1/2 -translate-x-1/2 "
+        className = "fixed z-70 bg-black/50 left-0 top-0 w-full h-full" onClick={onClose}
       >
-        <h1 className="text-lg text-center mb-2">{ title }</h1> */}
+        
         {children}
-      {/* </div> */}
-
-      
-
+      </div>
     </>
     
      

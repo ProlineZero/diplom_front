@@ -1,5 +1,5 @@
 {
-  "name": "online-books",
+  "name": "car-guide",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "axios": "^1.2.0",
+    "cors": "^2.8.5",
     "handy-svg": "^1.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
