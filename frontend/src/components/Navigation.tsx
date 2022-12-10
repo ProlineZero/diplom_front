@@ -26,24 +26,25 @@ export function Navigation({numPressedBtn, searchIsVisible = true}: INavigation)
 
 <div className="bg-red-700 fixed z-10 w-full min-h-[5rem] h-[10%] text-right">
     <div className="flex items-center mt-2 ml-5 justify-start">
-        <a className="text-red-100">
+        <a className="text-red-100" href="\">
             <HandySvg
                 src={mainIconSrc}
                 className="m-auto"
                 width="5rem"
                 height="5rem"
-                fill="currentColor"/>
+                fill="currentColor"
+                />
         </a>
-        <span className="text-red-100 ml-4 text-2xl font-bold">
+        <a className="text-red-100 ml-4 text-2xl font-bold" href="\">
             Car Guide
-        </span>
+        </a>
     
     {searchIsVisible && <div className=" z-20 ml-[7%] w-[30%] min-w-[17rem]">
         <Search/>
     </div>}
     </div>
     <nav >
-        <div className="fixed top-[2.2rem] w-full items-center">
+        <div className="fixed left-[30%] top-[2.2rem] w-[70%] items-center">
             <a className= "align-middle hover:bg-red-100 text-red-100 hover:text-red-800 mx-4 px-3 py-1 rounded-full border-2 border-white text-base font-medium " href="/authorization">
                 Вход
             </a>

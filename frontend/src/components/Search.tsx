@@ -8,12 +8,12 @@ export function Search() {
     <>
     
     
-    <div className="relative flex flex-col justify-center h-full px-3 mx-auto flex-center">
+    <div className="relative z-10 flex flex-col justify-center h-full px-3 mx-auto flex-center">
       <div className="relative flex items-center w-full pl-1 ">
         <div className="container relative left-0 z-50 flex w-3/4 l">
           <div className="relative flex items-center w-full h-full ">
             <div className="absolute z-50  items-center justify-center block w-auto h-10 p-3 pr-2 text-sm text-gray-500 uppercase cursor-pointer sm:hidden">
-              <svg fill="none" className="relative w-5 h-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+              <svg fill="none" className="relative w-5 h-5" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" stroke="currentColor" viewBox="0 0 24 24">
                 <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z">
                 </path>
               </svg>
@@ -34,11 +34,13 @@ export function Search() {
       </div>
     </div>
 
-    <div className = 'z-70'>
-    {modal && <Modal onClose={() => setModal(false)}>
+    
+    {modal && <Modal onClose={() => {setModal(false)}}>
+      <div className = 'fixed z-20'>
         <Filters/>
+      </div>
       </Modal>}
-    </div>
+   
     
 
     </>
