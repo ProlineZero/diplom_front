@@ -15,8 +15,8 @@ interface INavigation {
 export function Navigation({numPressedBtn, searchIsVisible = true}: INavigation) {
 
 
-    const btnOnClassName = "w-full hover:text-red-800 hover:bg-gray-300 flex items-center p-2 my-6 transition-colors duration-200 border-4 shadow rounded-full border-gray-400/50 text-red-800 bg-gray-300 "
-    const btnOffClassName = "w-full hover:text-red-800 hover:bg-gray-300 flex items-center p-2 my-6 transition-colors duration-200 rounded-full text-red-800 "
+    const btnOnClassName = "w-full hover:text-red-800 hover:bg-gray-300 flex items-center p-2 my-2 transition-colors duration-200 border-4 shadow rounded-full border-gray-400/50 text-red-800 bg-gray-300 "
+    const btnOffClassName = "w-full hover:text-red-800 hover:bg-gray-300 flex items-center p-2 my-2 transition-colors duration-200 rounded-full text-red-800 "
 
 
   return (
