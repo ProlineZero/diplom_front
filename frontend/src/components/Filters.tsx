@@ -102,7 +102,7 @@ export function Filters() {
             </div>
           </div>
           <div className='m-2 z-20'>
-            <MyCombobox list = {models} placeholder = "Модель"/> 
+            <MyCombobox list = {models} placeholder = "Модель" isActive = {models.length > 0 ? true : false}/> 
           </div>
           <div className='m-2 z-20'>
             <MyCombobox list = {engineTypes} placeholder = "Двигатель"/> 
@@ -114,7 +114,7 @@ export function Filters() {
             </div>
           </div>
           <div className='m-2 z-10'>
-            <MyCombobox list = {generations} placeholder = "Поколение"/> 
+            <MyCombobox list = {generations} placeholder = "Поколение" isActive = {generations.length > 0 ? true : false}/> 
           </div>
           <div className='m-2 z-10'>
             <MyCombobox list = {gearboxes} placeholder = "Коробка"/> 
@@ -131,7 +131,7 @@ export function Filters() {
             <MyCombobox list = {transmissions} placeholder = "Трансмиссия"/> 
           </div>
           <div className='m-2 z-0 border-r-2 border-b-2 rounded-lg checked:border-red-600'>
-            <MyCombobox list = {sorting} placeholder = "Сортировка"/> 
+            <MyCombobox list = {sorting} placeholder = "Сортировка"/>
           </div>
 
         </div>

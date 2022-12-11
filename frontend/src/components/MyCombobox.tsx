@@ -18,9 +18,10 @@ import {IItem} from '../models'
 interface ComboboxProps {
   list: IItem[]
   placeholder?: string
+  isActive?: boolean
 }
 
-export function MyCombobox({list, placeholder}: ComboboxProps) {
+export function MyCombobox({list, placeholder,isActive = true}: ComboboxProps) {
   const [selected, setSelected] = useState('')
   const [query, setQuery] = useState('')
 
@@ -36,7 +37,7 @@ export function MyCombobox({list, placeholder}: ComboboxProps) {
 
   return (
     <div className = "static">
-      <Combobox value={selected} onChange={setSelected} nullable >
+      <Combobox value={selected} onChange={setSelected} nullable disabled = {!isActive}>
         <div className="relative mt-2 ">
           <div className="relative cursor-default overflow-hidden rounded-xl bg-white text-left shadow-md " >
             <Combobox.Input
@@ -44,7 +45,6 @@ export function MyCombobox({list, placeholder}: ComboboxProps) {
               displayValue={(item: IItem) => item?.name}
               onChange={(event) => setQuery(event.target.value)}
               placeholder = {placeholder}
-              // readOnly = {false}
             />
 
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">

@@ -10,30 +10,28 @@ import { Modal } from "../components/Modal";
 
 
 
+
 export function CarPage() {
 
-  
+  const [car, setCar] = useState<ICar>(Object)
 
   const { id } = useParams()
   
-  async function fetchCar(id?: number) {
+  async function fetchCar() {
 
-    const car = await axios.get<ICar[]>('https://online-books.ru/api/cars-list/')
-    return car
+    const response = await axios.get<ICar>('https://carguider.ru/api/cars-detail/' + String(id))
+    setCar(response.data)
+
+  }
+
+  function set_to_favorites() {
+
 
   }
 
-  async function fetchProduct(id?: number) {
-
-    const car = await axios.get<IProduct>('https://fakestoreapi.com/products/1')
-    return car
-
-  }
   
-
-  console.log(fetchCar())
-  console.log(fetchProduct())
-  console.log(123)
+  fetchCar()
+  // console.log(car)
 
   const  [modal, setModal] = useState(false)
 
@@ -49,22 +47,23 @@ export function CarPage() {
       <div className="fixed bg-white w-[70%] h-[80%] left-[58%] -translate-x-1/2 top-[55%] -translate-y-1/2 rounded-3xl ">
 
 
-      <div className= "fixed bg-gray-100 w-full h-[60%] rounded-3xl border-l-2 border-r-2 border-red-600 shadow-2xl shadow-black/50">
+      <div className= "fixed bg-gray-100 w-full h-[60%] rounded-3xl border-l-2 border-r-2 border-red-600 shadow-xl shadow-black/50">
       <div className='absolute grid gap-0 grid-cols-2 grid-rows-1 w-full h-full '>
 
       <div className="block ">
         <div className="fixed w-[50%] h-[60%]" onClick={() => setModal(true)}>
-          <img src={testSrc} className="relative w-full h-full rounded-3xl" style ={{objectFit: 'cover'}} />
+          <img src={car.pict_url} className="relative w-full h-full rounded-3xl" style ={{objectFit: 'cover'}} />
         </div>
       </div>
       <div className="block text-6xl font-medium text-center object-center">
 
         <div className="relative left-[50%] -translate-x-1/2 top-[50%] -translate-y-1/2 p-2">
-          <h1>Mitsubishi Lancer Evolution IX</h1>
+          <h1>{car.name}</h1>
         </div>
 
         <div className= "fixed w-[50%] h-[60%] top-0">
-          <button className="absolute left-[90%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-red-300 bg-gray-100 rounded-full hover:text-red-700">
+          <button className="absolute left-[90%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-red-300 bg-gray-100 rounded-full hover:text-red-700"
+          onClick={() => set_to_favorites()}>
             <HandySvg
                 src={likeIconSrc}
                 className="m-auto"
@@ -79,88 +78,105 @@ export function CarPage() {
       </div>
       </div>
 
-      <div className= "fixed bg-gray-100 w-full h-[32%] top-[68%] rounded-3xl border-l-2 border-r-2 border-red-600 shadow-2xl shadow-black/50">
-      <div className='absolute grid gap-2 grid-cols-5 grid-rows-4 w-full h-full  items-center p-4'>
+      <div className= "fixed bg-gray-100 w-full h-[32%] top-[68%] rounded-3xl border-l-2 border-r-2 border-red-600 shadow-xl shadow-black/50">
+      <div className='absolute grid gap-y-2 gap-x-3 grid-cols-5 grid-rows-4 w-full h-full  items-center py-4 px-10'>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Страна:<br/></small><small>Денисляндия бля</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Тип двигателя:<br/></small><small>{car.engine_type}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>КПП:<br/></small><small>{car.transmission_type}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Кузов:<br/></small><small>{car.body_type}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Масса:<br/></small><small>{car.weight} кг</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Годы выпуска:<br/></small><small>{car.year_start}-{car.year_end}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Объем двигателя:<br/></small><small>{car.engine_capacity} л.</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Привод:<br/></small><small>{car.drive_type}</small>
+      </div>
+      
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Длина:<br/></small><small>{car.body_length} мм</small>
+      </div>
+      
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Кол-во мест:<br/></small><small>{car.seats}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Макс. скорость:<br/></small><small>{car.max_speed} км\ч</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Мощность двигателя:<br/></small><small>{car.engine_power} л.с.{(car.kwt_power != null) ? ('/' + String(car.kwt_power) + ' кВт') : ''}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Расположение цилиндров:<br/></small><small>{car.cylinders_order}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Ширина:<br/></small><small>{car.body_width} мм</small>
+      </div>
+      
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Передние торомза:<br/></small><small>{car.front_brakes}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Разгон от 0 до 100 км\ч:<br/></small><small>{car.time_to_100} с.</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Крутящий момент:<br/></small><small>{car.torque} Н·м</small>
+      </div>
+      
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Кол-во цилиндров:<br/></small><small>{car.cylinders_number}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Высота:<br/></small><small>{car.body_height} мм</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
+      <div className="block py-1 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
+        <small className = 'text-gray-500'>Задние тормоза:<br/></small><small>{car.back_brakes}</small>
       </div>
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
-      </div>
+     
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
-      </div>
+     
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
-      </div>
+      
 
-      <div className="block  text-xl font-medium text-center">
-        <h1>Parameter: value</h1>
-      </div>
+      
+
+      
+
+      
+
+      
+
+      
 
       </div> 
       
@@ -169,7 +185,7 @@ export function CarPage() {
       
       {modal && <Modal onClose={() => setModal(false)}>
         <div className="fixed z-20 left-1/2 -translate-x-1/2 top-[50%] -translate-y-1/2 m-4 " >
-          <img src={testSrc} className="relative w-full h-full rounded-lg " style ={{objectFit: 'contain', pointerEvents: 'none'}}/>
+          <img src={car.pict_url} className="relative w-full h-full rounded-xl " style ={{objectFit: 'contain', pointerEvents: 'none'}}/>
         </div>
       </Modal>}
       

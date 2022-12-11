@@ -11,7 +11,7 @@ export interface ICar {
   drive_type: string
   name: string
   popularity: number
-  pict_id: number
+  pict_url: string
   engine_capacity: number
   engine_power: number
   kwt_power: number
@@ -30,6 +30,19 @@ export interface ICar {
   front_brakes: string
   back_brakes: string
   generation: number
+}
+
+export interface ICard {
+  id: number
+  name: string
+  country_field: string
+  engine_capacity: number
+  engine_power: number
+  transmission_type: string
+  engine_type: string
+  year_start: number
+  year_end: number
+  pict_url: string
 }
 
 export interface IProduct {
