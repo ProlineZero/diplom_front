@@ -20,7 +20,10 @@ export function CarsPage() {
 
   }
 
-  fetchCars()
+  useEffect(() => {
+    fetchCars()
+  }, [])
+  
   // console.log(cards)
 
   return (
@@ -29,9 +32,9 @@ export function CarsPage() {
 
       <Navigation numPressedBtn = {0}/>
       
-      <div className=" bg-fixed ml-[150px] sm:ml-[17%] w-[83%] px-4 py-16">
+      <div className=" bg-fixed ml-[170px] sm:ml-[17%] w-[83%] px-4 py-16">
         {/* <div className=" bg-gray-300  "> */}
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-4 gap-8 ">
+          <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 ">
             {cards.map(card => <Card data={card}/>)}
           </div>
         </div>

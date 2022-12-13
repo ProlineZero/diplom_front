@@ -89,48 +89,48 @@ export function Filters() {
         </div>
 
         <div className="grid h-[70%] w-full gap-2 grid-cols-3 grid-rows-4 items-center">
-          <div className="m-2 z-30">
+          <div className="m-2 z-40">
             <MyCombobox list = {brands} placeholder = "Марка"/>
           </div>
-          <div className='m-2 z-30'>
+          <div className='m-2 z-40'>
             <MyCombobox list = {bodies} placeholder = "Кузов"/> 
           </div>
-          <div className='m-2 z-30'>
+          <div className='m-2 z-40'>
             <div className='flex flex-row'>
               <MyCombobox list = {engineSizes} placeholder = "Объем от"/> 
               <MyCombobox list = {engineSizes} placeholder = "до"/> 
             </div>
           </div>
-          <div className='m-2 z-20'>
+          <div className='m-2 z-30'>
             <MyCombobox list = {models} placeholder = "Модель" isActive = {models.length > 0 ? true : false}/> 
           </div>
-          <div className='m-2 z-20'>
+          <div className='m-2 z-30'>
             <MyCombobox list = {engineTypes} placeholder = "Двигатель"/> 
           </div>
-          <div className='m-2 z-20'>
+          <div className='m-2 z-30'>
             <div className='flex flex-row'>
               <MyCombobox list = {enginePowers} placeholder = "Мощность от"/> 
               <MyCombobox list = {enginePowers} placeholder = "до"/> 
             </div>
           </div>
-          <div className='m-2 z-10'>
+          <div className='m-2 z-20'>
             <MyCombobox list = {generations} placeholder = "Поколение" isActive = {generations.length > 0 ? true : false}/> 
           </div>
-          <div className='m-2 z-10'>
+          <div className='m-2 z-20'>
             <MyCombobox list = {gearboxes} placeholder = "Коробка"/> 
           </div>
-          <div className='m-2 z-10'>
+          <div className='m-2 z-20'>
             <div className='flex flex-row'>
               <MyCombobox list = {yearsRelease} placeholder = "Год от"/> 
               <MyCombobox list = {yearsRelease} placeholder = "до"/> 
             </div> 
           </div>
-          <div className='m-2 z-0'>
+          <div className='m-2 z-10'>
           </div>
-          <div className='m-2 z-0'>
+          <div className='m-2 z-10'>
             <MyCombobox list = {transmissions} placeholder = "Трансмиссия"/> 
           </div>
-          <div className='m-2 z-0 border-r-2 border-b-2 rounded-lg checked:border-red-600'>
+          <div className='m-2 z-10 border-r-2 border-b-2 rounded-lg checked:border-red-600'>
             <MyCombobox list = {sorting} placeholder = "Сортировка"/>
           </div>
 
