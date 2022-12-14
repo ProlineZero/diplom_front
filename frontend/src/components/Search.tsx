@@ -42,12 +42,13 @@ export function Search() {
     </div>
 
     
-    {modal && <Modal onClose={() => {setModal(false)}}>
+    <div className={modal? 'visible' : 'hidden'}>
+    <Modal onClose={() => {setModal(false)}}>
       <div className = 'fixed z-20'>
         <Filters searchInputData= {inputData}/>
       </div>
-      </Modal>}
-   
+    </Modal>
+    </div>
     
 
     </>

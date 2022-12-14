@@ -1,5 +1,6 @@
-import React, { useState } from "react"
-import {IItem} from '../models'
+import React, { useState, useEffect } from "react"
+import { useDispatch } from "react-redux/es/hooks/useDispatch"
+import {IItem, emptyItem, IFilters} from '../models'
 import { MyCombobox } from './MyCombobox'
 
 const brands: IItem[] = [
@@ -35,7 +36,7 @@ const bodies: IItem[] = [
 
 ]
 
-const gearboxes: IItem[] = [
+const transmissions: IItem[] = [
   { id: 1, name: 'Механическая' },
   { id: 2, name: 'Автоматическая' },
   { id: 3, name: 'Робот' },
@@ -46,7 +47,7 @@ const engineTypes: IItem[] = [
   { id: 2, name: 'Роторный' },
 ]
 
-const transmissions: IItem[] = [
+const driveTypes: IItem[] = [
   { id: 1, name: 'Передний привод' },
   { id: 2, name: 'Задний привод' },
   { id: 3, name: 'Полный привод' },
@@ -88,26 +89,50 @@ interface IFiltersProps {
 export function Filters({searchInputData}: IFiltersProps) {
   
   const [clearAllComboboxes, setClearAllComboboxes] = useState(false)
+  const [selectedFilters, setSelectedFilters] = useState(false)
 
 
-  const [brand, setBrand] = useState<IItem|undefined>()
-  const [body, setBody] = useState<IItem|undefined>()
-  const [startEngineSize, setStartEngineSize] = useState<IItem|undefined>()
-  const [endEngineSize, setEndEngineSize] = useState<IItem|undefined>()
-  const [model, setModel] = useState<IItem|undefined>()
-  const [engineType, setEngineType] = useState<IItem|undefined>()
-  const [startEnginePower, setStartEnginePower] = useState<IItem|undefined>()
-  const [endEnginePower, setEndEnginePower] = useState<IItem|undefined>()
-  const [generation, setGeneration] = useState<IItem|undefined>()
-  const [gearbox, setGearbox] = useState<IItem|undefined>()
-  const [startYear, setStartYear] = useState<IItem|undefined>()
-  const [endYear, setEndYear] = useState<IItem|undefined>()
-  const [country, setCountry] = useState<IItem|undefined>()
-  const [transmission, setTransmission] = useState<IItem|undefined>()
-  const [sort, setSort] = useState<IItem|undefined>()
+  const [brand, setBrand] = useState<IItem>(emptyItem)
+  const [body, setBody] = useState<IItem>(emptyItem)
+  const [startEngineSize, setStartEngineSize] = useState<IItem>(emptyItem)
+  const [endEngineSize, setEndEngineSize] = useState<IItem>(emptyItem)
+  const [model, setModel] = useState<IItem>(emptyItem)
+  const [engineType, setEngineType] = useState<IItem>(emptyItem)
+  const [startEnginePower, setStartEnginePower] = useState<IItem>(emptyItem)
+  const [endEnginePower, setEndEnginePower] = useState<IItem>(emptyItem)
+  const [generation, setGeneration] = useState<IItem>(emptyItem)
+  const [driveType, setDriveType] = useState<IItem>(emptyItem)
+  const [startYear, setStartYear] = useState<IItem>(emptyItem)
+  const [endYear, setEndYear] = useState<IItem>(emptyItem)
+  const [country, setCountry] = useState<IItem>(emptyItem)
+  const [transmission, setTransmission] = useState<IItem>(emptyItem)
+  const [sort, setSort] = useState<IItem>(emptyItem)
 
   // console.log(startYear.name, 'search: ', searchInputData)
 
+  const filters:IFilters = {
+    brand: brand,
+    body: body,
+    startEngineSize: startEngineSize,
+    endEngineSize: endEngineSize,
+    model: model,
+    engineType: engineType,
+    startEnginePower: startEnginePower,
+    endEnginePower: endEnginePower,
+    generation: generation,
+    driveType: driveType,
+    startYear: startYear,
+    endYear: endYear,
+    country: country,
+    transmission:transmission,
+    sort: sort,
+    searchText: searchInputData,
+  }
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch({type:"filters/set/", payload: filters})
+}, [selectedFilters])
 
   
   
@@ -123,62 +148,78 @@ export function Filters({searchInputData}: IFiltersProps) {
 
         <div className="grid h-[70%] gap-2 grid-cols-3 grid-rows-4 items-center mx-4">
           <div className="m-2 z-40">
-            <MyCombobox list = {brands} placeholder = "Марка" whatState={setBrand} clearInput = {clearAllComboboxes}/>
+            <MyCombobox list = {brands} placeholder = "Марка" setItem={setBrand}
+            clearInput = {clearAllComboboxes} selectedItem = {brand}/>
           </div>
           <div className='m-2 z-40'>
-            <MyCombobox list = {bodies} placeholder = "Кузов" whatState={setBody}/> 
+            <MyCombobox list = {bodies} placeholder = "Кузов" setItem={setBody}
+            clearInput = {clearAllComboboxes} selectedItem = {body}/> 
           </div>
           <div className='m-2 z-40'>
             <div className='flex flex-row'>
-              <MyCombobox list = {engineSizes} placeholder = "Объем от" whatState={setStartEngineSize}/> 
-              <MyCombobox list = {engineSizes} placeholder = "до" whatState={setEndEngineSize}/> 
+              <MyCombobox list = {engineSizes} placeholder = "Объем от"
+              setItem={setStartEngineSize} clearInput = {clearAllComboboxes} selectedItem = {startEngineSize}/> 
+              <MyCombobox list = {engineSizes} placeholder = "до"
+              setItem={setEndEngineSize} clearInput = {clearAllComboboxes} selectedItem = {endEngineSize}/> 
             </div>
           </div>
           <div className='m-2 z-30'>
-            <MyCombobox list = {models} placeholder = "Модель" isActive = {models.length > 0 ? true : false} whatState={setModel}/> 
+            <MyCombobox list = {models} placeholder = "Модель" isActive = {models.length > 0 ? true : false}
+            setItem={setModel} clearInput = {clearAllComboboxes} selectedItem = {model}/> 
           </div>
           <div className='m-2 z-30'>
-            <MyCombobox list = {engineTypes} placeholder = "Двигатель" whatState={setEngineType}/> 
+            <MyCombobox list = {engineTypes} placeholder = "Двигатель"
+            setItem={setEngineType} clearInput = {clearAllComboboxes} selectedItem = {engineType}/> 
           </div>
           <div className='m-2 z-30'>
             <div className='flex flex-row'>
-              <MyCombobox list = {enginePowers} placeholder = "Мощность от" whatState={setStartEnginePower}/> 
-              <MyCombobox list = {enginePowers} placeholder = "до" whatState={setEndEnginePower}/> 
+              <MyCombobox list = {enginePowers} placeholder = "Мощность от"
+              setItem={setStartEnginePower} clearInput = {clearAllComboboxes} selectedItem = {startEnginePower}/> 
+              <MyCombobox list = {enginePowers} placeholder = "до"
+              setItem={setEndEnginePower} clearInput = {clearAllComboboxes} selectedItem = {endEnginePower}/> 
             </div>
           </div>
           <div className='m-2 z-20'>
-            <MyCombobox list = {generations} placeholder = "Поколение" isActive = {generations.length > 0 ? true : false} whatState={setGeneration}/> 
+            <MyCombobox list = {generations} placeholder = "Поколение" isActive = {generations.length > 0 ? true : false}
+            setItem={setGeneration} clearInput = {clearAllComboboxes} selectedItem = {generation}/> 
           </div>
           <div className='m-2 z-20'>
-            <MyCombobox list = {gearboxes} placeholder = "Коробка" whatState={setGearbox}/> 
+            <MyCombobox list = {transmissions} placeholder = "Трансмиссия"
+            setItem={setTransmission} clearInput = {clearAllComboboxes} selectedItem = {transmission}/> 
           </div>
           <div className='m-2 z-20'>
             <div className='flex flex-row'>
-              <MyCombobox list = {yearsRelease} placeholder = "Год от" whatState={setStartYear}/> 
-              <MyCombobox list = {yearsRelease} placeholder = "до" whatState={setEndYear}/> 
+              <MyCombobox list = {yearsRelease} placeholder = "Год от"
+              setItem={setStartYear} clearInput = {clearAllComboboxes} selectedItem = {startYear}/> 
+              <MyCombobox list = {yearsRelease} placeholder = "до"
+              setItem={setEndYear} clearInput = {clearAllComboboxes} selectedItem = {endYear}/> 
             </div> 
           </div>
           <div className='m-2 z-10'>
-            <MyCombobox list = {countries} placeholder = "Страна" whatState={setCountry}/> 
+            <MyCombobox list = {countries} placeholder = "Страна"
+            setItem={setCountry} clearInput = {clearAllComboboxes} selectedItem = {country}/> 
           </div>
           <div className='m-2 z-10'>
-            <MyCombobox list = {transmissions} placeholder = "Трансмиссия" whatState={setTransmission}/> 
+            <MyCombobox list = {driveTypes} placeholder = "Привод"
+            setItem={setDriveType} clearInput = {clearAllComboboxes} selectedItem = {driveType}/> 
           </div>
           <div className='m-2 z-10'>
-            <MyCombobox list = {sorting} placeholder = "Сортировка" whatState={setSort}/>
+            <MyCombobox list = {sorting} placeholder = "Сортировка"
+            setItem={setSort} clearInput = {clearAllComboboxes} selectedItem = {sort}/>
           </div>
 
         </div>
           <div className= "sticky h-[15%] w-full">
             <div className='flex flex-row-reverse'>
               <div className = "m-2" >
-              <button className= "bg-red-600 hover:bg-red-700 text-red-100 px-3 py-1  rounded-full text-base mx-4">
+              <button className= "bg-red-600 hover:bg-red-700 text-red-100 px-3 py-1  rounded-full text-base mx-4"
+              onClick={() => {setSelectedFilters(true); setTimeout(() => setSelectedFilters(false), 200)}}>
                   Применить
               </button>
               </div>
               <div className = "m-2" >
               <button className= "bg-gray-200 hover:bg-gray-300 text-gray-600 px-3 py-1  rounded-full text-base"
-              onClick={() => {setClearAllComboboxes(true); setTimeout(() => setClearAllComboboxes(false), 200);}}>
+              onClick={() => {setClearAllComboboxes(true); setTimeout(() => setClearAllComboboxes(false), 200); setSelectedFilters(true); setTimeout(() => setSelectedFilters(false), 200)}}>
                   Сбросить
               </button>
               </div>

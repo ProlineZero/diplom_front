@@ -2,7 +2,7 @@ import { Fragment, useState, useRef, useEffect} from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Interface } from 'readline'
-import {IItem} from '../models'
+import {IItem, emptyItem} from '../models'
 import { useHref } from 'react-router-dom'
 
 
@@ -21,11 +21,12 @@ interface ComboboxProps {
   placeholder?: string
   isActive?: boolean
   clearInput?: boolean
-  whatState: React.Dispatch<React.SetStateAction<IItem|undefined>>
+  setItem: React.Dispatch<React.SetStateAction<IItem>>
+  selectedItem: IItem
 }
 
 
-export function MyCombobox({list, placeholder,isActive = true, clearInput = false, whatState}: ComboboxProps) {
+export function MyCombobox({list, placeholder,isActive = true, clearInput = false, setItem, selectedItem}: ComboboxProps) {
   const [selected, setSelected] = useState('')
   const [query, setQuery] = useState('')
 
@@ -46,12 +47,19 @@ export function MyCombobox({list, placeholder,isActive = true, clearInput = fals
     if (clearInput) {
       setSelected('')
       setQuery('')
-      whatState(undefined)
-
-      console.log(123)
+      setItem(emptyItem)
     }
-    return () => {}
   }, [clearInput])
+
+  useEffect(() => {
+    setSelected('')
+    setQuery('')
+}, [clearInput])
+
+  useEffect(() => {
+      setSelected(selectedItem.name)
+      setQuery(selectedItem.name)
+  }, [])
 
   return (
     <div className = "static">
@@ -61,7 +69,7 @@ export function MyCombobox({list, placeholder,isActive = true, clearInput = fals
             <Combobox.Input
               className="w-full rounded-xl py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 border-2 focus:outline-none focus:border-red-600 hover:border-red-600 " 
               displayValue={(item: IItem) => item?.name}
-              onChange={(event) => {setQuery(event.target.value);whatState(list[list.findIndex((element) => element.name == event.target.value)])}}
+              onChange={(event) => {setQuery(event.target.value);setItem(list[list.findIndex((element) => element.name == event.target.value)])}}
               placeholder = {placeholder}
             />
 

@@ -1,13 +1,23 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux/es/exports';
 import { Card } from '../components/Card'
 import { Navigation } from '../components/Navigation'
-import { ICard} from '../models';
+import { ICard, IFilters} from '../models';
 
 
 export function CarsPage() {
 
   const [cards, setCards] = useState<ICard[]>([])
+  // const [filters, setFilters] = useState<IFilters>()
+
+
+
+
+  const filters = useSelector((state:any) => state.filters)
+  console.log(filters)
+
+  
 
   function addCard(product: ICard) {
     setCards(prev => [...prev, product])
