@@ -24,7 +24,7 @@ export function CarsPage() {
     fetchCars()
   }, [])
   
-  // console.log(cards)
+  console.log(cards)
 
   return (
 

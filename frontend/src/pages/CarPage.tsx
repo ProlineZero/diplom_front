@@ -87,19 +87,19 @@ export function CarPage() {
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Тип двигателя:<br/></small><small>{car.engine_type}</small>
+        <small className = 'text-gray-500'>Тип двигателя:<br/></small><small>{(car.engine_type != null) ? car.engine_type : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>КПП:<br/></small><small>{car.transmission_type}</small>
+        <small className = 'text-gray-500'>КПП:<br/></small><small>{(car.transmission_type != null) ? car.transmission_type : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Кузов:<br/></small><small>{car.body_type}</small>
+        <small className = 'text-gray-500'>Кузов:<br/></small><small>{(car.body_type != null) ? car.body_type : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Масса:<br/></small><small>{car.weight} кг</small>
+        <small className = 'text-gray-500'>Масса:<br/></small><small>{(car.weight != null) ? car.weight : 'Отсутствует'} кг</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
@@ -107,44 +107,44 @@ export function CarPage() {
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Объем двигателя:<br/></small><small>{(car.engine_type != 'Электро') ? (String(car.engine_capacity) + ' л.') : 'Отсутствует'}</small>
+        <small className = 'text-gray-500'>Объем двигателя:<br/></small><small>{(car.engine_type != 'Электро' || car.engine_capacity == null) ? (String(car.engine_capacity) + ' л.') : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Привод:<br/></small><small>{car.drive_type}</small>
+        <small className = 'text-gray-500'>Привод:<br/></small><small>{(car.drive_type != null) ? car.drive_type : 'Отсутствует'}</small>
       </div>
       
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Длина:<br/></small><small>{car.body_length} мм</small>
+        <small className = 'text-gray-500'>Длина:<br/></small><small>{(car.body_length != null) ? (car.body_length + ' мм') : 'Отсутствует'}</small>
       </div>
       
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Кол-во мест:<br/></small><small>{car.seats}</small>
+        <small className = 'text-gray-500'>Кол-во мест:<br/></small><small>{(car.seats != null) ? car.seats : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Макс. скорость:<br/></small><small>{car.max_speed} км\ч</small>
+        <small className = 'text-gray-500'>Макс. скорость:<br/></small><small>{(car.max_speed != null) ? car.max_speed : 'Отсутствует'} км\ч</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Мощность двигателя:<br/></small><small>{car.engine_power} л.с.{(car.kwt_power != null) ? ('/' + String(car.kwt_power) + ' кВт') : ''}</small>
+        <small className = 'text-gray-500'>Мощность двигателя:<br/></small><small>{(car.engine_power != null) ? (car.engine_power + ' л.с.') : 'Отсутствует'} л.с.{(car.kwt_power != null) ? ('/' + String(car.kwt_power) + ' кВт') : ''}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Расположение цилиндров:<br/></small><small>{(car.engine_type != 'Электро') ? (car.cylinders_order) : 'Отсутствует'}</small>
+        <small className = 'text-gray-500'>Расположение цилиндров:<br/></small><small>{(car.engine_type != 'Электро' || car.cylinders_order == null) ? (car.cylinders_order) : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Ширина:<br/></small><small>{car.body_width} мм</small>
+        <small className = 'text-gray-500'>Ширина:<br/></small><small>{(car.body_width != null) ? (car.body_width + ' мм') : 'Отсутствует'}</small>
       </div>
       
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Передние торомза:<br/></small><small>{car.front_brakes}</small>
+        <small className = 'text-gray-500'>Передние торомза:<br/></small><small>{(car.front_brakes != null) ? car.front_brakes : 'Отсутствует'}</small>
       </div>
 
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Разгон от 0 до 100 км\ч:<br/></small><small>{car.time_to_100} с.</small>
+        <small className = 'text-gray-500'>Разгон от 0 до 100 км\ч:<br/></small><small>{(car.time_to_100 != null) ? (car.time_to_100 + ' с.') : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
@@ -152,15 +152,15 @@ export function CarPage() {
       </div>
       
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Кол-во цилиндров:<br/></small><small>{(car.engine_type != 'Электро') ? (car.cylinders_number) : 'Отсутствует'}</small>
+        <small className = 'text-gray-500'>Кол-во цилиндров:<br/></small><small>{(car.engine_type != 'Электро' || car.cylinders_number == null) ? (car.cylinders_number) : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Высота:<br/></small><small>{car.body_height} мм</small>
+        <small className = 'text-gray-500'>Высота:<br/></small><small>{(car.body_height != null) ? (car.body_height + ' мм') : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Задние тормоза:<br/></small><small>{car.back_brakes}</small>
+        <small className = 'text-gray-500'>Задние тормоза:<br/></small><small>{(car.back_brakes != null) ? car.back_brakes : 'Отсутствует'}</small>
       </div>
 
      
