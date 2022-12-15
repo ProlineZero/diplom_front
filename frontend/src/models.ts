@@ -3,25 +3,53 @@ export interface IItem {
   name: string
   }
 
+export interface IMinMax {
+  min: number
+  max: number
+}
+
 export const emptyItem: IItem = {id: -1, name: ''}
 
+// export interface IFilters {
+//   brand: IItem
+//   body: IItem
+//   startEngineSize: IItem
+//   endEngineSize: IItem
+//   model: IItem
+//   engineType: IItem
+//   startEnginePower: IItem
+//   endEnginePower: IItem
+//   generation: IItem
+//   driveType: IItem
+//   startYear: IItem
+//   endYear: IItem
+//   country: IItem
+//   transmission: IItem
+//   sort: IItem
+//   searchText: string
+// }
+
 export interface IFilters {
-  brand: IItem
-  body: IItem
-  startEngineSize: IItem
-  endEngineSize: IItem
-  model: IItem
-  engineType: IItem
-  startEnginePower: IItem
-  endEnginePower: IItem
-  generation: IItem
-  driveType: IItem
-  startYear: IItem
-  endYear: IItem
-  country: IItem
-  transmission: IItem
-  sort: IItem
-  searchText: string
+  name?: string
+  country?: number
+
+  brand?: number
+  model?: number
+  generation?: number
+
+  engine_type?: number
+  transmission_type?: number
+  body_type?: number
+  drive_type?: number
+
+  engine_capacity_from?: number
+  engine_capacity_to?: number
+  engine_power_from?: number
+  engine_power_to?: number
+  year_start?: number
+  year_end?: number
+
+  order_by?: string
 }
 
 
@@ -29,6 +57,7 @@ export interface IFilters {
 
 export interface ICar {
   id: number
+  country: string
   engine_type: string
   transmission_type: string
   body_type: string

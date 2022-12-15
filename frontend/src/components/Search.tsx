@@ -1,11 +1,19 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Filters } from "./Filters"
 import { Modal } from './Modal'
+import { useDispatch } from "react-redux/es/hooks/useDispatch"
+import {useSearchValue} from "../hooks/use-search-value"
 
 export function Search() {
   const  [modal, setModal] = useState(false)
-  const [inputData, setInputData] = useState('')
+  const [searchValue, innerSearchValue, setInnerSearchValue] = useSearchValue('')
 
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch({type:'filters/set/search_text', payload: searchValue})
+}, [searchValue])
+
+  
 
   // console.log(inputData)
 
@@ -28,7 +36,7 @@ export function Search() {
             </svg>
             <input type="text" className="block w-full py-1.5 pl-10 pr-4 leading-normal rounded-2xl focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-200 ring-opacity-90 bg-gray-100 text-gray-400 aa-input"
             placeholder="Поиск"
-            onChange={(event) => setInputData(event.target.value)}
+            onChange={(event) => {setInnerSearchValue(event.target.value)}}
             />
             <button className="absolute right-0 h-auto px-2 py-0 mr-2 text-base text-red-600 border border-red-500 rounded-xl hover:bg-red-100"
             onClick={() => setModal(true)}>
@@ -45,7 +53,7 @@ export function Search() {
     <div className={modal? 'visible' : 'hidden'}>
     <Modal onClose={() => {setModal(false)}}>
       <div className = 'fixed z-20'>
-        <Filters searchInputData= {inputData}/>
+        <Filters searchInputData= {searchValue}/>
       </div>
     </Modal>
     </div>

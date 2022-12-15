@@ -83,7 +83,7 @@ export function CarPage() {
       <div className='absolute grid gap-y-2 gap-x-3 grid-cols-5 grid-rows-4 w-full h-full  items-center py-4 px-10'>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Страна:<br/></small><small>Денисляндия бля</small>
+        <small className = 'text-gray-500'>Страна:<br/></small><small>{car.country}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">

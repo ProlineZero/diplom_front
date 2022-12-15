@@ -21,8 +21,8 @@ interface ComboboxProps {
   placeholder?: string
   isActive?: boolean
   clearInput?: boolean
-  setItem: React.Dispatch<React.SetStateAction<IItem>>
-  selectedItem: IItem
+  setItem: React.Dispatch<React.SetStateAction<IItem|undefined>>
+  selectedItem: IItem|undefined
 }
 
 
@@ -57,8 +57,10 @@ export function MyCombobox({list, placeholder,isActive = true, clearInput = fals
 }, [clearInput])
 
   useEffect(() => {
+    if (selectedItem) {
       setSelected(selectedItem.name)
       setQuery(selectedItem.name)
+    }
   }, [])
 
   return (
