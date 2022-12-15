@@ -11,6 +11,8 @@ export function Search() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch({type:'filters/set/search_text', payload: searchValue})
+    dispatch({type:"clearFetchCarsOffset"})
+    window.scrollTo(0, 0);
 }, [searchValue])
 
   

@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom'
 import { ICar, IProduct } from '../models';
 import { Navigation } from '../components/Navigation';
 import { Modal } from "../components/Modal";
+import { useSelector } from "react-redux";
+import { delay } from "../functions/common";
 
 
 
@@ -24,9 +26,24 @@ export function CarPage() {
 
   }
 
+  function get_PDF() {
+
+  }
+
+
+  const user = useSelector((state:any) => state.user)
+
   function set_to_favorites() {
-
-
+    if (!user.id) {
+      setPromtAutho(true)
+      delay(2000).then(() => setPromtAutho(false))
+    } else {
+      if (btnLikeStyle == btnNotLiked) {
+        setBtnLikeStyle(btnLiked)
+      } else {
+        setBtnLikeStyle(btnNotLiked)
+      }
+    }
   }
 
 
@@ -34,8 +51,15 @@ export function CarPage() {
     fetchCar()
   }, [])
 
-  const  [modal, setModal] = useState(false)
+  const btnLiked = 'absolute left-[90%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium hover:text-red-300 bg-gray-100 rounded-full text-red-700'
+  const btnNotLiked = 'absolute left-[90%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-red-300 bg-gray-100 rounded-full hover:text-red-700'
+  const correctBtnLikeStyle = btnNotLiked
 
+  const  [modal, setModal] = useState(false)
+  const [promtAutho, setPromtAutho] = useState(false)
+  const [btnLikeStyle, setBtnLikeStyle] = useState(correctBtnLikeStyle)
+
+  
   return (
     <>
 
@@ -63,8 +87,18 @@ export function CarPage() {
         </div>
 
         <div className= "fixed w-[50%] h-[60%] top-0">
-          <button className="absolute left-[90%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-red-300 bg-gray-100 rounded-full hover:text-red-700"
+          <button className= {btnLikeStyle}
           onClick={() => set_to_favorites()}>
+            <HandySvg
+                src={likeIconSrc}
+                className="m-auto"
+                width="40"
+                height="40"
+                fill="currentColor"/>
+          </button>
+        
+        <button className= "absolute left-[81%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-gray-400 bg-gray-100 rounded-full hover:text-gray-700"
+          onClick={() => get_PDF()}>
             <HandySvg
                 src={likeIconSrc}
                 className="m-auto"
@@ -74,9 +108,17 @@ export function CarPage() {
           </button>
         </div>
 
+      
       </div>
         
       </div>
+        <div className = {promtAutho? 'visible relative w-[35%] h-[18%] z-10 left-[53%] top-[75%]' : 'hidden relative w-[35%] h-[18%] z-10 left-[55%] top-[70%]'}>
+          <div className=" p-1 m-6 bg-white shadow-2xl shadow-black/50 rounded-2xl duration-700">
+            <h1 className='text-gray-500 text-xl text-center py-2'>
+              Для добавления в избранное необходимо авторизироваться
+            </h1>
+          </div>
+        </div>
       </div>
 
       <div className= "fixed bg-gray-100 w-full h-[32%] top-[68%] rounded-3xl border-l-2 border-r-2 border-red-600 shadow-xl shadow-black/50">
@@ -107,7 +149,7 @@ export function CarPage() {
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Объем двигателя:<br/></small><small>{(car.engine_type != 'Электро' || car.engine_capacity == null) ? (String(car.engine_capacity) + ' л.') : 'Отсутствует'}</small>
+        <small className = 'text-gray-500'>Объем двигателя:<br/></small><small>{(car.engine_type != 'Электро' && car.engine_capacity != null) ? (String(car.engine_capacity) + ' л.') : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
@@ -131,7 +173,7 @@ export function CarPage() {
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Расположение цилиндров:<br/></small><small>{(car.engine_type != 'Электро' || car.cylinders_order == null) ? (car.cylinders_order) : 'Отсутствует'}</small>
+        <small className = 'text-gray-500'>Расположение цилиндров:<br/></small><small>{(car.engine_type != 'Электро' && car.cylinders_order != null) ? (car.cylinders_order) : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
@@ -152,7 +194,7 @@ export function CarPage() {
       </div>
       
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Кол-во цилиндров:<br/></small><small>{(car.engine_type != 'Электро' || car.cylinders_number == null) ? (car.cylinders_number) : 'Отсутствует'}</small>
+        <small className = 'text-gray-500'>Кол-во цилиндров:<br/></small><small>{(car.engine_type != 'Электро' && car.cylinders_number != null) ? (car.cylinders_number) : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">

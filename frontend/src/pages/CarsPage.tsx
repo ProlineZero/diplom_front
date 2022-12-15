@@ -11,7 +11,7 @@ export function CarsPage() {
   const lim = 20
   const [cards, setCards] = useState<ICard[]>([])
   const [currentPage, setCurrentPage] = useState(0)
-  const [fetching, setFetching] = useState(true)
+  const [fetching, setFetching] = useState(false)
   
   // const [filters, setFilters] = useState<IFilters>()
 
@@ -52,16 +52,20 @@ export function CarsPage() {
     // console.log(filters)
     
     // if (fetching) {
-      // console.log('Refetching cars')
+      console.log('Refetching cars')
       // console.log('offset', offset)
       try {
       // setCurrentPage(prev => prev + 1)
       // setFetching(false)
       // console.log(offset)
-      const response = await axios.post<ICard[]>('https://carguider.ru/api/get-cars-list/', {...filters, limit: 20, offset: offset})
+      const response = await axios.post<ICard[]>('https://carguider.ru/api/get-cars-list/', {...filters, limit: 20, offset: offset}).finally(() => setFetching(false))
       console.log('Response: ', response)
+      console.log('fetching: ', fetching)
+      // const wasNewSerchInput = (f)
       const cardsInState = (offset == 0) ? [] : [...cards]
       setCards(cardsInState.concat(response.data))
+      // if(wasNewSerchInput) filters.name = ''
+      // setCards([...cards, ...response.data])
       // dispatch({type:"set/fetchCarsOffset", payload:  20*currentPage})
       
       } catch (error) {
@@ -88,9 +92,11 @@ export function CarsPage() {
   }, [])
 
   const scrollHandler = (event:any) => {
-    if (event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 100)
+    if (event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 200) {
+      console.log('EndPage')
       setFetching(true)
     }
+  }
   
   // console.log(cards)
 

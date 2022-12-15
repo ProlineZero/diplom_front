@@ -2,7 +2,7 @@
 import { stat } from "fs"
 import { createStore } from "redux"
 import { Filters } from "./components/Filters"
-import { IFilters, emptyItem} from "./models"
+import { IFilters, emptyItem, IUser} from "./models"
 
 const defaultFilters: IFilters = {
   name: '',
@@ -27,10 +27,18 @@ const defaultFilters: IFilters = {
   order_by: undefined,
 }
 
+const defaultUser: IUser = {
+  id: undefined,
+  email: undefined,
+  password: undefined,
+  first_name: undefined,
+  last_name: undefined,
+}
+
 const defaultState = {
   filters: defaultFilters,
   fetchCarsOffset: 0,
-  
+  user: defaultUser
 }
 
 function carReducer(state = defaultState, action:any) {

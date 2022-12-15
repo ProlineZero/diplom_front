@@ -1,5 +1,5 @@
 export interface IItem {
-  id: number
+  id: number|undefined
   name: string
   }
 
@@ -8,26 +8,15 @@ export interface IMinMax {
   max: number
 }
 
-export const emptyItem: IItem = {id: -1, name: ''}
+export const emptyItem: IItem = {id: undefined, name: ''}
 
-// export interface IFilters {
-//   brand: IItem
-//   body: IItem
-//   startEngineSize: IItem
-//   endEngineSize: IItem
-//   model: IItem
-//   engineType: IItem
-//   startEnginePower: IItem
-//   endEnginePower: IItem
-//   generation: IItem
-//   driveType: IItem
-//   startYear: IItem
-//   endYear: IItem
-//   country: IItem
-//   transmission: IItem
-//   sort: IItem
-//   searchText: string
-// }
+export interface IUser {
+  id?: number
+  email?: string
+  password?: string
+  first_name?: string
+  last_name?: string
+}
 
 export interface IFilters {
   name?: string
