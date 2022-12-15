@@ -53,7 +53,7 @@ export function Search() {
     <div className={modal? 'visible' : 'hidden'}>
     <Modal onClose={() => {setModal(false)}}>
       <div className = 'fixed z-20'>
-        <Filters searchInputData= {searchValue}/>
+        <Filters searchInputData= {searchValue} filtersIsVisible = {setModal}/>
       </div>
     </Modal>
     </div>

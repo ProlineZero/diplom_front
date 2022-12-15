@@ -11,7 +11,8 @@ export function CarsPage() {
   const lim = 20
   const [cards, setCards] = useState<ICard[]>([])
   const [currentPage, setCurrentPage] = useState(0)
-  const [fetching, setFetching] = useState(false)
+  const [fetching, setFetching] = useState(true)
+  
   // const [filters, setFilters] = useState<IFilters>()
 
 
@@ -36,38 +37,48 @@ export function CarsPage() {
 
 
   const filters = useSelector((state:any) => state.filters)
-  console.log(filters)
-  const fetchCarsOffset = useSelector((state:any) => state.fetchCarsOffset)
-
   
+  
+  
+  // console.log('Вызов Selectro для offset+')
+  const fetchCarsOffset = useSelector((state:any) => state.fetchCarsOffset)
+  // console.log('fetchCarsOffset', fetchCarsOffset)
+  console.log('Filters: ',filters, 'offset: ', fetchCarsOffset)
   
 
   async function fetchCars(offset:number = 0) {
 
     // console.log('fetching')
     // console.log(filters)
-    if (!fetching) {
-      console.log('Refetching cars')
+    
+    // if (fetching) {
+      // console.log('Refetching cars')
+      // console.log('offset', offset)
       try {
       // setCurrentPage(prev => prev + 1)
-      setFetching(true)
-      const response = await axios.post<ICard[]>('https://carguider.ru/api/get-cars-list/', {...filters, limit: 20, offset})
+      // setFetching(false)
+      // console.log(offset)
+      const response = await axios.post<ICard[]>('https://carguider.ru/api/get-cars-list/', {...filters, limit: 20, offset: offset})
       console.log('Response: ', response)
       const cardsInState = (offset == 0) ? [] : [...cards]
       setCards(cardsInState.concat(response.data))
       // dispatch({type:"set/fetchCarsOffset", payload:  20*currentPage})
+      
       } catch (error) {
         console.log('error')
       } finally {
         setFetching(false)
+        dispatch({type:"set/fetchCarsOffset", payload: cards.length})
       }
-    }
+    // }
 
   }
 
   useEffect(() => {
-      fetchCars()
-  }, [filters])
+
+      fetchCars(fetchCarsOffset)
+
+  }, [filters, fetching])
 
   useEffect(()=> {
     document.addEventListener('scroll', scrollHandler)
@@ -77,14 +88,9 @@ export function CarsPage() {
   }, [])
 
   const scrollHandler = (event:any) => {
-    if (event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 200)
-    // console.log('scrollHeight', event.target.documentElement.scrollHeight)
-    // console.log('scrollHeight', event.target.documentElement.scrollTop)
-    // console.log('innerHeight', window.innerHeight)
-    // console.log('scroll')
-    // setFetching(true)()
-    {}
-  }
+    if (event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 100)
+      setFetching(true)
+    }
   
   // console.log(cards)
 

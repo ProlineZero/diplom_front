@@ -46,8 +46,8 @@ export interface IFilters {
   engine_capacity_to?: number
   engine_power_from?: number
   engine_power_to?: number
-  year_start?: number
-  year_end?: number
+  year_start_from?: number
+  year_start_to?: number
 
   order_by?: string
 }

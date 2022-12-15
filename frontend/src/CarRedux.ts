@@ -21,8 +21,8 @@ const defaultFilters: IFilters = {
   engine_capacity_to: undefined,
   engine_power_from: undefined,
   engine_power_to: undefined,
-  year_start: undefined,
-  year_end: undefined,
+  year_start_from: undefined,
+  year_start_to: undefined,
 
   order_by: undefined,
 }
@@ -44,6 +44,8 @@ function carReducer(state = defaultState, action:any) {
       return {... state, fetchCarsOffset: action.payload}
     case 'clearFilters':
       return {...state, filters: defaultFilters}
+    case 'clearFetchCarsOffset':
+      return {...state, fetchCarsOffset: 0}
   
     default:
       return state

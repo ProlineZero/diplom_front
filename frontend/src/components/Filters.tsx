@@ -66,10 +66,11 @@ const sorting: IItem[] = [
 const rename_sorting:{[key:string]:string} = {"По возрастанию мощности":"engine_power", 'По убыванию мощности':'-engine_power'}
 interface IFiltersProps {
   searchInputData: string
+  filtersIsVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
-export function Filters({searchInputData}: IFiltersProps) {
+export function Filters({searchInputData, filtersIsVisible}: IFiltersProps) {
   
   const [clearAllComboboxes, setClearAllComboboxes] = useState(false)
   const [selectedFilters, setSelectedFilters] = useState(false)
@@ -108,6 +109,9 @@ export function Filters({searchInputData}: IFiltersProps) {
   const [engineSizeMinMax, setEngineSizeMinMax] = useState<IMinMax>()
   const [enginePowerMinMax, setEnginePowerMinMax] = useState<IMinMax>()
   const [yearMinMax, setYearMinMax] = useState<IMinMax>()
+  const [sizes, setSizes] = useState<IItem[]>([])
+  const [powers, setPowers] = useState<IItem[]>([])
+  const [years, setYears] = useState<IItem[]>([])
 
   
   async function fetchBrands() {
@@ -241,6 +245,34 @@ export function Filters({searchInputData}: IFiltersProps) {
     fetchYearMinMax()
   }, [])
 
+  useEffect(() => {
+    console.log('engineSizeMinMax:', engineSizeMinMax)
+    if (engineSizeMinMax) 
+    for (let i = engineSizeMinMax.min, id = 0; i <= engineSizeMinMax.max; i += 0.1, id++) {
+      engineSizes.push({id, name: String(i.toFixed(1))})
+    }
+    if(engineSizes.length > 0)
+      setSizes(engineSizes)
+
+    if (enginePowerMinMax) {
+      enginePowers.push({id:0, name: String(enginePowerMinMax.min)})
+      for (let i = enginePowerMinMax.min + 8, id = 1; i <= enginePowerMinMax.max; i += 10, id++) {
+        enginePowers.push({id, name: String(i)})
+      }
+    }
+    if(enginePowers.length > 0)
+      setPowers(enginePowers)
+
+    if (yearMinMax) 
+      for (let i = yearMinMax.max, id = 0; i >= yearMinMax.min; i--, id++) {
+        yearsRelease.push({id, name: String(i)})
+      }
+      if(yearsRelease.length > 0)
+        setYears(yearsRelease)
+
+  }, [yearMinMax])
+
+    
 
   
   // console.log(rename_sorting[rename_sorting.findIndex((element) => element.name == sort.name)].rename)
@@ -264,8 +296,8 @@ export function Filters({searchInputData}: IFiltersProps) {
     engine_capacity_to: Number(endEngineSize?.name) ? Number(endEngineSize?.name) : undefined,
     engine_power_from: Number(startEnginePower?.name) ? Number(startEnginePower?.name) : undefined,
     engine_power_to: Number(endEnginePower?.name) ? Number(endEnginePower?.name) : undefined,
-    year_start: Number(startYear?.name) ? Number(startYear?.name) : undefined,
-    year_end: Number(endYear?.name) ? Number(endYear?.name) : undefined,
+    year_start_from: Number(startYear?.name) ? Number(startYear?.name) : undefined,
+    year_start_to: Number(endYear?.name) ? Number(endYear?.name) : undefined,
 
     order_by: sort ? rename_sorting[sort.name] : undefined
 
@@ -279,22 +311,7 @@ export function Filters({searchInputData}: IFiltersProps) {
 
 
 //////////////////////////////////////////////
-  if (engineSizeMinMax) 
-    for (let i = engineSizeMinMax.min, id = 0; i <= engineSizeMinMax.max; i += 0.1, id++) {
-      engineSizes.push({id, name: String(i.toFixed(1))})
-    }
-
-  if (enginePowerMinMax) {
-    enginePowers.push({id:0, name: String(enginePowerMinMax.min)})
-    for (let i = enginePowerMinMax.min + 8, id = 1; i <= enginePowerMinMax.max; i += 10, id++) {
-      enginePowers.push({id, name: String(i)})
-    }
-  }
-
-  if (yearMinMax) 
-    for (let i = yearMinMax.max, id = 0; i >= yearMinMax.min; i--, id++) {
-      yearsRelease.push({id, name: String(i)})
-    } 
+  
 
   
   
@@ -319,9 +336,9 @@ export function Filters({searchInputData}: IFiltersProps) {
           </div>
           <div className='m-2 z-40'>
             <div className='flex flex-row'>
-              <MyCombobox list = {engineSizes} placeholder = "Объем от"
+              <MyCombobox list = {sizes} placeholder = "Объем от"
               setItem={setStartEngineSize} clearInput = {clearAllComboboxes} selectedItem = {startEngineSize}/> 
-              <MyCombobox list = {engineSizes} placeholder = "до"
+              <MyCombobox list = {sizes} placeholder = "до"
               setItem={setEndEngineSize} clearInput = {clearAllComboboxes} selectedItem = {endEngineSize}/> 
             </div>
           </div>
@@ -335,9 +352,9 @@ export function Filters({searchInputData}: IFiltersProps) {
           </div>
           <div className='m-2 z-30'>
             <div className='flex flex-row'>
-              <MyCombobox list = {enginePowers} placeholder = "Мощность от"
+              <MyCombobox list = {powers} placeholder = "Мощность от"
               setItem={setStartEnginePower} clearInput = {clearAllComboboxes} selectedItem = {startEnginePower}/> 
-              <MyCombobox list = {enginePowers} placeholder = "до"
+              <MyCombobox list = {powers} placeholder = "до"
               setItem={setEndEnginePower} clearInput = {clearAllComboboxes} selectedItem = {endEnginePower}/> 
             </div>
           </div>
@@ -351,9 +368,9 @@ export function Filters({searchInputData}: IFiltersProps) {
           </div>
           <div className='m-2 z-20'>
             <div className='flex flex-row'>
-              <MyCombobox list = {yearsRelease} placeholder = "Год от"
+              <MyCombobox list = {years} placeholder = "Год от"
               setItem={setStartYear} clearInput = {clearAllComboboxes} selectedItem = {startYear}/> 
-              <MyCombobox list = {yearsRelease} placeholder = "до"
+              <MyCombobox list = {years} placeholder = "до"
               setItem={setEndYear} clearInput = {clearAllComboboxes} selectedItem = {endYear}/> 
             </div> 
           </div>
@@ -375,7 +392,7 @@ export function Filters({searchInputData}: IFiltersProps) {
             <div className='flex flex-row-reverse'>
               <div className = "m-2" >
               <button className= "bg-red-600 hover:bg-red-700 text-red-100 px-3 py-1  rounded-full text-base mx-4"
-              onClick={() => {setSelectedFilters(true); setTimeout(() => setSelectedFilters(false), 200)}}>
+              onClick={() => {setSelectedFilters(true); setTimeout(() => setSelectedFilters(false), 200); filtersIsVisible(false); dispatch({type:"clearFetchCarsOffset"}); window.scrollTo(0, 0);}}>
                   Применить
               </button>
               </div>
