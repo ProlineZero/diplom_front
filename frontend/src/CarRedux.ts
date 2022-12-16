@@ -28,7 +28,7 @@ const defaultFilters: IFilters = {
 }
 
 const defaultUser: IUser = {
-  id: undefined,
+  jwt: undefined,
   email: undefined,
   password: undefined,
   first_name: undefined,
@@ -54,6 +54,8 @@ function carReducer(state = defaultState, action:any) {
       return {...state, filters: defaultFilters}
     case 'clearFetchCarsOffset':
       return {...state, fetchCarsOffset: 0}
+      case 'user/set/jwt':
+        return {... state, user: {... state.filters, jwt: action.payload}}
   
     default:
       return state

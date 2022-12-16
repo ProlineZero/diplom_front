@@ -3,6 +3,8 @@ import { Filters } from "./Filters"
 import { Modal } from './Modal'
 import { useDispatch } from "react-redux/es/hooks/useDispatch"
 import {useSearchValue} from "../hooks/use-search-value"
+import {HandySvg} from "handy-svg"
+import filtersIconSrc from "../icons/filters.svg"
 
 export function Search() {
   const  [modal, setModal] = useState(false)
@@ -42,7 +44,12 @@ export function Search() {
             />
             <button className="absolute right-0 h-auto px-2 py-0 mr-2 text-base text-red-600 border border-red-500 rounded-xl hover:bg-red-100"
             onClick={() => setModal(true)}>
-              +
+              <HandySvg
+                src={filtersIconSrc}
+                className="my-6, mx-0"
+                width="17"
+                height="25"
+                fill="currentColor"/>
             </button>
           </div>
         </div>

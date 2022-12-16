@@ -36,7 +36,7 @@ export function Navigation({numPressedBtn, searchIsVisible = true}: INavigation)
                 />
         </a>
         <a className="text-red-100 ml-4 text-2xl font-bold" href="\">
-            Car Guide
+            Car Guider
         </a>
     
     {searchIsVisible && <div className=" z-20 ml-[7%] w-[30%] min-w-[17rem]">
@@ -45,15 +45,17 @@ export function Navigation({numPressedBtn, searchIsVisible = true}: INavigation)
     </div>
     <nav >
         <div className="fixed left-[30%] top-[2.2rem] w-[70%] items-center">
+
             <a className= "align-middle hover:bg-red-100 text-red-100 hover:text-red-800 mx-4 px-3 py-1 rounded-full border-2 border-white text-base font-medium " href="/authorization">
-                Вход
+                Авторизация
             </a>
-
-
-            <a className="align-middle hover:bg-red-100 text-red-100 hover:text-red-800 mr-10 px-3 py-1 rounded-full border-2 border-white text-base font-medium" href="/registration">
-                Регистрация
-            </a>
-
+      
+       
+            <button className = {localStorage.getItem('jwt')? "visible align-middle hover:bg-red-100 text-red-100 hover:text-red-800 mr-10 px-3 py-1 rounded-full border-2 border-white text-base font-medium" : "hidden align-middle hover:bg-red-100 text-red-100 hover:text-red-800 mr-10 px-3 py-1 rounded-full border-2 border-white text-base font-medium"}
+            onClick = {() => {localStorage.removeItem('jwt'); window.location.reload(); }}>
+                Выход
+            </button>
+        
         </div>
                                
  

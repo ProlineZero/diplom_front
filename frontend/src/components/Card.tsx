@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import testSrc from "../icons/test.jpg"
 import likeIconSrc from "../icons/like.svg"
 import {HandySvg} from "handy-svg"
@@ -7,6 +7,7 @@ import { ICard} from '../models';
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
 import { delay } from "../functions/common"
+import axios from "axios"
 
 interface ICardProps {
   data: ICard
@@ -14,28 +15,41 @@ interface ICardProps {
 
 export function Card({data}: ICardProps) {
 
-  const user = useSelector((state:any) => state.user)
-
-  function set_to_favorites() {
-    if (user.id) {
-      setPromtAutho(true)
-      delay(2000).then(() => setPromtAutho(false))
-    } else {
-      if (btnLikeStyle == btnNotLiked) {
-        setBtnLikeStyle(btnLiked)
-      } else {
-        setBtnLikeStyle(btnNotLiked)
-      }
-    }
-
+  // const user = useSelector((state:any) => state.user)
+  const [isLiked, setIsLiked] = useState<boolean>()
+  async function checkIsLiked() {
+    const response = await axios.post<{success:boolean}>('https://carguider.ru/api/is-car-in-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
+   setIsLiked(response.data.success)
   }
 
-  const btnLiked = "w-10 h-10 text-base font-medium hover:text-red-100 bg-red-600 rounded-full text-red-400"
-  const btnNotLiked = "w-10 h-10 text-base font-medium text-red-100 bg-red-600 rounded-full hover:text-red-400"
-  const correctBtnLikeStyle = btnNotLiked
+  useEffect(() => {
+    checkIsLiked()
+  }, [isLiked])
+
+  function set_to_favorites() {
+    if (localStorage.getItem('jwt')) {
+      if (btnLikeStyle == btnNotLiked) {
+        setBtnLikeStyle(btnLiked)
+        axios.post('https://carguider.ru/api/add-to-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
+      } else {
+        // console.log('ДАДАДА')
+        setBtnLikeStyle(btnNotLiked)
+        axios.post('https://carguider.ru/api/delete-from-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
+      }
+    } else {
+      setPromtAutho(true)
+      delay(2000).then(() => setPromtAutho(false))
+    }
+  }
+
+
+  const btnLiked = "w-10 h-10 text-base font-medium bg-red-600 rounded-full text-red-400"
+  const btnNotLiked = "w-10 h-10 text-base font-medium text-red-100 bg-red-600 rounded-full "
+  console.log('car_id: ', data.id, ' state: ', isLiked)
+  const correctBtnLikeStyle = isLiked? btnLiked : btnNotLiked
 
   const [promtAutho, setPromtAutho] = useState(false)
-  const [btnLikeStyle, setBtnLikeStyle] = useState(correctBtnLikeStyle)
+  const [btnLikeStyle, setBtnLikeStyle] = useState(isLiked? btnLiked : btnNotLiked)
   
 
   return (
@@ -64,7 +78,7 @@ export function Card({data}: ICardProps) {
                       {data.year_start} - {(data.year_end != null) ? (String(data.year_end)) : 'н.в.'}
                   </p>
                   <button type="button" className={btnLikeStyle}
-                  onClick={() => set_to_favorites()}>
+                  onClick={() => set_to_favorites() }>
                     <HandySvg
                         src={likeIconSrc}
                         className="m-auto"

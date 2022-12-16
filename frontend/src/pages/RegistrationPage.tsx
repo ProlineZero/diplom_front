@@ -1,20 +1,12 @@
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { InputString } from '../components/InputString'
 import { Navigation } from '../components/Navigation'
 import { delay } from '../functions/common'
+import { IUser } from "../models"
 
 export function RegistrationPage() {
-
-
-  function try_registration() {
-    const response = true
-    if (response) {
-      setSuccessReg(true)
-      delay(1000).then(() => window.location.assign('/'))
-    } else {
-      setErrorReg(true)
-    }
-  }
 
   const [emailInput, setEmailInput] = useState<string>('')
   const [passwordInput, setPasswordInput] = useState<string>('')
@@ -22,7 +14,55 @@ export function RegistrationPage() {
   const [lastNameInput, setLastNameInput] = useState<string>('')
   const [successReg, setSuccessReg] = useState(false)
   const [errorReg, setErrorReg] = useState(false)
+  const [regStatus, setRegStatus] = useState<boolean>()
+  const [clickReg, setClickReg] = useState(0)
+  const [jwt, setJwt] = useState('')
 
+  const dispatch = useDispatch()
+
+  let user:IUser = {
+    first_name: firstNameInput,
+    last_name: lastNameInput,
+    email: emailInput,
+    password: passwordInput
+  }
+  useEffect(() => {
+    user = {
+      first_name: firstNameInput,
+      last_name: lastNameInput,
+      email: emailInput,
+      password: passwordInput
+    }
+  }, [clickReg])
+  
+
+  async function checkRegistration()  {
+    const response = await axios.post<{success: boolean, jwt:string}>('https://carguider.ru/api/register/', user)
+    setRegStatus(response.data.success)
+    setJwt(response.data.jwt)
+    console.log('regStatus: ', response.data)
+    tryRegistration()
+    // dispatch({type:"user/set/jwt", payload: jwt})
+  }
+
+  useEffect(() => {
+    tryRegistration()
+  }, [regStatus])
+    
+  function tryRegistration() {
+    const response = regStatus
+    if (response != undefined) {
+      if (response) {
+        setSuccessReg(true)
+        setErrorReg(false)
+        localStorage.setItem('jwt', jwt)
+        delay(1000).then(() => window.location.assign('/'))
+      } else {
+        setErrorReg(true)
+        setSuccessReg(false)
+      }
+    }
+  }
   return (
     <>
 
@@ -44,7 +84,7 @@ export function RegistrationPage() {
                   </div>
                   <div className="flex w-full my-4">
                   <button className=" w-full px-2 py-1 transition ease-in duration-200 uppercase rounded-full text-red-700 hover:bg-red-600 hover:text-white border-2 border-red-700 focus:outline-none"
-                  onClick={() => {try_registration()}}>
+                  onClick={() => {setClickReg(prev => prev + 1); checkRegistration()}}>
                     Зарегистрироваться
                   </button>
                   </div>

@@ -11,7 +11,7 @@ export interface IMinMax {
 export const emptyItem: IItem = {id: undefined, name: ''}
 
 export interface IUser {
-  id?: number
+  jwt?: string
   email?: string
   password?: string
   first_name?: string

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import testSrc from "../icons/example1.jpg"
 import likeIconSrc from "../icons/like.svg"
+import documentIconSrc from "../icons/document.svg"
 import {HandySvg} from "handy-svg"
 import axios from 'axios';
 import { useParams } from 'react-router-dom'
@@ -34,15 +35,18 @@ export function CarPage() {
   const user = useSelector((state:any) => state.user)
 
   function set_to_favorites() {
-    if (!user.id) {
-      setPromtAutho(true)
-      delay(2000).then(() => setPromtAutho(false))
-    } else {
+    if (localStorage.getItem('jwt')) {
       if (btnLikeStyle == btnNotLiked) {
         setBtnLikeStyle(btnLiked)
+        axios.post('https://carguider.ru/api/add-to-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: id})
       } else {
+        // console.log('ДАДАДА')
         setBtnLikeStyle(btnNotLiked)
+        axios.post('https://carguider.ru/api/delete-from-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: id})
       }
+    } else {
+      setPromtAutho(true)
+      delay(2000).then(() => setPromtAutho(false))
     }
   }
 
@@ -51,8 +55,8 @@ export function CarPage() {
     fetchCar()
   }, [])
 
-  const btnLiked = 'absolute left-[90%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium hover:text-red-300 bg-gray-100 rounded-full text-red-700'
-  const btnNotLiked = 'absolute left-[90%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-red-300 bg-gray-100 rounded-full hover:text-red-700'
+  const btnLiked = 'absolute left-[90%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium bg-gray-100 rounded-full text-red-700'
+  const btnNotLiked = 'absolute left-[90%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-red-300 bg-gray-100 rounded-full'
   const correctBtnLikeStyle = btnNotLiked
 
   const  [modal, setModal] = useState(false)
@@ -100,7 +104,7 @@ export function CarPage() {
         <button className= "absolute left-[81%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-gray-400 bg-gray-100 rounded-full hover:text-gray-700"
           onClick={() => get_PDF()}>
             <HandySvg
-                src={likeIconSrc}
+                src={documentIconSrc}
                 className="m-auto"
                 width="40"
                 height="40"
@@ -125,7 +129,7 @@ export function CarPage() {
       <div className='absolute grid gap-y-2 gap-x-3 grid-cols-5 grid-rows-4 w-full h-full  items-center py-4 px-10'>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Страна:<br/></small><small>{car.country}</small>
+        <small className = 'text-gray-500'>Страна:<br/></small><small>{(car.country != null) ? car.country : 'Отсутствует'}</small>
       </div>
 
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">

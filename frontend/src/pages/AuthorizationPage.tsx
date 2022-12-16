@@ -1,26 +1,69 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { InputString } from '../components/InputString'
 import {Link} from 'react-router-dom'
 import { Navigation } from '../components/Navigation'
 import { wait } from '@testing-library/user-event/dist/utils'
 import { delay } from '../functions/common'
+import axios from 'axios'
+import { IUser } from "../models"
 
 export function AuthorizationPage() {
 
-  function try_authorization() {
-    const response = true
-    if (response) {
-      setSuccessAutho(true)
-      delay(1000).then(() => window.location.assign('/'))
-    } else {
-      setErrorAutho(true)
-    }
-  }
+
 
   const [emailInput, setEmailInput] = useState<string>('')
   const [passwordInput, setPasswordInput] = useState<string>('')
   const [successAutho, setSuccessAutho] = useState(false)
   const [errorAutho, setErrorAutho] = useState(false)
+  const [autStatus, setAutStatus] = useState<boolean>()
+  const [clickAut, setClickAut] = useState(0)
+  const [jwt, setJwt] = useState('')
+
+
+  let user:IUser = {
+    email: emailInput,
+    password: passwordInput
+  }
+  useEffect(() => {
+    user = {
+
+      email: emailInput,
+      password: passwordInput
+    }
+  }, [clickAut])
+  
+  async function checkAuthorization()  {
+    try {
+    await axios.post<{jwt: string}>('https://carguider.ru/api/login/', user).catch(error => {setAutStatus(false)})
+    const response = await axios.post<{jwt: string}>('https://carguider.ru/api/login/', user)
+    setAutStatus(response? true: false)
+    setJwt(response.data.jwt)
+    console.log('autStatus: ', response.data)
+    tryAuthorization()
+    } catch (error) {
+      console.log('error')
+    } 
+  }
+
+  useEffect(() => {
+    tryAuthorization()
+  }, [autStatus])
+    
+  function tryAuthorization() {
+    const response = autStatus
+    if (response != undefined) {
+      if (response) {
+        setSuccessAutho(true)
+        setErrorAutho(false)
+        localStorage.setItem('jwt', jwt)
+        delay(1000).then(() => window.location.assign('/'))
+      } else {
+        setErrorAutho(true)
+        setSuccessAutho(false)
+      }
+    }
+  }
+
 
   return (
     <>
@@ -34,7 +77,7 @@ export function AuthorizationPage() {
           <InputString title='E-mail' placeholder = 'Введите E-mail' name = 'email' setInput={setEmailInput}/>
           <InputString title='Пароль' placeholder = 'Введите пароль' name = 'password' setInput={setPasswordInput}/>
           <button className=" w-full px-2 py-1 transition ease-in duration-200 uppercase rounded-full text-red-700 hover:bg-red-600 hover:text-white border-2 border-red-700 focus:outline-none"
-          onClick={() => {try_authorization()}}>
+          onClick={() => {setClickAut(prev => prev + 1); checkAuthorization()}}>
             Войти
           </button>
         <h1 className='text-gray-500 text-sm text-center overline'>Нет аккаунта в Car Guide?</h1>
