@@ -1,60 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch } from "react-redux/es/hooks/useDispatch"
-import {IItem, IFilters, IMinMax} from '../models'
+import {IItem, IFilters, IMinMax, emptyItem} from '../models'
 import { MyCombobox } from './MyCombobox'
 import axios from 'axios'
 import { rename } from "fs"
-
-// const brands: IItem[] = [
-//   { id: 21, name: 'Lada' },
-//   { id: 2, name: 'Mazda' },
-//   { id: 3, name: 'BMW' },
-//   { id: 43, name: 'Honda' },
-//   { id: 5, name: 'Toyota' },
-//   { id: 7, name: 'Subaru' },
-// ]
-
-// const models: IItem[] = [
-//   { id: 1, name: 'Модель 1' },
-//   { id: 2, name: 'Модель 2' },
-//   { id: 3, name: 'Модель 3' },
-// ]
-
-// const generations: IItem[] = [
-//   { id: 1, name: 'Первое' },
-//   { id: 2, name: 'Второе' },
-// ]
-
-// const countries: IItem[] = [
-//   { id: 1, name: 'Россия' },
-//   { id: 2, name: 'Германия' },
-//   { id: 3, name: 'Страна рисовозок' },  
-// ]
-
-// const bodies: IItem[] = [
-//   { id: 1, name: 'Седан' },
-//   { id: 2, name: 'Универсал' },
-//   { id: 3, name: 'Лифтбек' },
-
-// ]
-
-// const transmissions: IItem[] = [
-//   { id: 1, name: 'Механическая' },
-//   { id: 2, name: 'Автоматическая' },
-//   { id: 3, name: 'Робот' },
-// ]
-
-// const engineTypes: IItem[] = [
-//   { id: 1, name: 'Бензиновый' },
-//   { id: 2, name: 'Роторный' },
-// ]
-
-// const driveTypes: IItem[] = [
-//   { id: 1, name: 'Передний привод' },
-//   { id: 2, name: 'Задний привод' },
-//   { id: 3, name: 'Полный привод' },
-// ]
-
 
 
 
@@ -76,12 +25,11 @@ const rename_sorting:{[key:string]:string} = {
   'Сначала старые' : 'year_start',
 }
 interface IFiltersProps {
-  searchInputData: string
   filtersIsVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
-export function Filters({searchInputData, filtersIsVisible}: IFiltersProps) {
+export function Filters({filtersIsVisible}: IFiltersProps) {
   
   const [clearAllComboboxes, setClearAllComboboxes] = useState(false)
   const [selectedFilters, setSelectedFilters] = useState(false)
@@ -128,17 +76,18 @@ export function Filters({searchInputData, filtersIsVisible}: IFiltersProps) {
   async function fetchBrands() {
     // const response: AxiosResponse<IItem[], any> 
     if (country && country.id != -1) {
-      const response1 = await axios.get<IItem[]>(`https://carguider.ru/api/get-brands/${country.id}/`)
-      setBrands(response1.data)
+      const response = await axios.get<IItem[]>(`https://carguider.ru/api/get-brands/${country.id}/`)
+      setBrands(response.data)
     } else {
-      const response2 = await axios.get<IItem[]>('https://carguider.ru/api/get-all-brands/')
-      setBrands(response2.data)
+      const response = await axios.get<IItem[]>('https://carguider.ru/api/get-all-brands/')
+      setBrands(response.data)
     }
   }
 
   useEffect(() => {
     fetchBrands()
   }, [])
+
   useEffect(() => {
     fetchBrands()
   }, [country])
@@ -159,6 +108,8 @@ export function Filters({searchInputData, filtersIsVisible}: IFiltersProps) {
     if (brand && brand.id != -1) {
       const response = await axios.get<IItem[]>(`https://carguider.ru/api/get-models/${brand.id}/`)
       setModels(response.data)
+    } else {
+      setModels([])
     }
   }
 
@@ -191,6 +142,8 @@ export function Filters({searchInputData, filtersIsVisible}: IFiltersProps) {
     if (model && model.id != -1 ) {
       const response = await axios.get<IItem[]>(`https://carguider.ru/api/get-generations/${model.id}/`)
       setGenerations(response.data)
+    } else {
+      setGenerations([])
     }
   }
 
@@ -291,7 +244,7 @@ export function Filters({searchInputData, filtersIsVisible}: IFiltersProps) {
   // console.log(startYear.name, 'search: ', searchInputData)
 
   const filters:IFilters = {
-    name: searchInputData,
+    name: '',
     country: country?.id,
 
     brand: brand?.id,
@@ -409,7 +362,7 @@ export function Filters({searchInputData, filtersIsVisible}: IFiltersProps) {
               </div>
               <div className = "m-2" >
               <button className= "bg-gray-200 hover:bg-gray-300 text-gray-600 px-3 py-1  rounded-full text-base"
-              onClick={() => {setClearAllComboboxes(true); setTimeout(() => setClearAllComboboxes(false), 200); dispatch({type:"clearFilters"});}}>
+              onClick={() => {setClearAllComboboxes(true); setTimeout(() => setClearAllComboboxes(false), 200); dispatch({type:"clearFilters"}); setBrand(undefined); setModel(undefined);}}>
                   Сбросить
               </button>
               </div>

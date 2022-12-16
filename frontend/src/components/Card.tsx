@@ -16,10 +16,12 @@ interface ICardProps {
 export function Card({data}: ICardProps) {
 
   // const user = useSelector((state:any) => state.user)
-  const [isLiked, setIsLiked] = useState<boolean>()
+  const [isLiked, setIsLiked] = useState(false)
   async function checkIsLiked() {
-    const response = await axios.post<{success:boolean}>('https://carguider.ru/api/is-car-in-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
-   setIsLiked(response.data.success)
+    if (localStorage.getItem('jwt')){
+      const response = await axios.post<{success:boolean}>('https://carguider.ru/api/is-car-in-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
+      setIsLiked(response.data.success)
+    }
   }
 
   useEffect(() => {

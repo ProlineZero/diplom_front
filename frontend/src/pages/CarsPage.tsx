@@ -20,18 +20,18 @@ export function CarsPage() {
 
   const dispatch = useDispatch()
 
-  const filters = useSelector((state:any) => state.filters)
-  
+  const filters =  useSelector((state:any) => state.filters)
   const fetchCarsOffset = useSelector((state:any) => state.fetchCarsOffset)
 
-  console.log('JWT: ', localStorage.getItem('jwt'))
+  // console.log('JWT: ', localStorage.getItem('jwt'))
 
-  console.log('Filters: ',filters, 'offset: ', fetchCarsOffset)
+  
   
 
   async function fetchCars(offset:number = 0) {
 
       console.log('Refetching cars')
+      console.log('Filters: ',filters, 'offset: ', fetchCarsOffset)
       try {
       setNotFounded(false)
       if(offset == 0) {
@@ -40,12 +40,11 @@ export function CarsPage() {
       }
       const response = await axios.post<ICard[]>('https://carguider.ru/api/get-cars-list/', {...filters, limit: 20, offset: offset}).finally(() => setFetching(false))
       console.log('Response: ', response)
-      console.log('fetching: ', fetching)
       const cardsInState = (offset == 0) ? [] : [...cards]
       setCards(cardsInState.concat(response.data))
       setLoading(false)
       setCardsIsVisible(true)
-      if (response.data.length == 0) {
+      if (response.data.length == 0 && offset == 0) {
         setNotFounded(true)
       } else {
         setNotFounded(false)
@@ -75,7 +74,7 @@ export function CarsPage() {
 
   const scrollHandler = (event:any) => {
     if (event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 200) {
-      console.log('EndPage')
+      // console.log('EndPage')
       setFetching(true)
     }
   }

@@ -10,6 +10,20 @@ export function Search() {
   const  [modal, setModal] = useState(false)
   const [searchValue, innerSearchValue, setInnerSearchValue] = useSearchValue('')
 
+  const [inputValue, setInputValue] = useState("");
+
+  const handleUserInput = (event:any) => {
+    setInputValue(event.target.value)
+    setInnerSearchValue(event.target.value)
+  };
+
+  function resetInputField() {
+    console.log('RESET search')
+    dispatch({type:'filters/set/search_text', payload: ""})
+    setInputValue("")
+  };
+
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch({type:'filters/set/search_text', payload: searchValue})
@@ -17,7 +31,7 @@ export function Search() {
     window.scrollTo(0, 0);
 }, [searchValue])
 
-  
+
 
   // console.log(inputData)
 
@@ -39,15 +53,17 @@ export function Search() {
               </path>
             </svg>
             <input type="text" className="block w-full py-1.5 pl-10 pr-4 leading-normal rounded-2xl focus:border-transparent focus:outline-none focus:ring-2 focus:ring-red-200 ring-opacity-90 bg-gray-100 text-gray-400 aa-input"
+            id = 'searchInputId'
+            value={inputValue}
             placeholder="Поиск"
-            onChange={(event) => {setInnerSearchValue(event.target.value)}}
+            onChange={handleUserInput}
             />
             <button className="absolute right-0 h-auto px-2 py-0 mr-2 text-base text-red-600 border border-red-500 rounded-xl hover:bg-red-100"
-            onClick={() => setModal(true)}>
+            onClick={() => {resetInputField(); setModal(true);}}>
               <HandySvg
                 src={filtersIconSrc}
                 className="my-6, mx-0"
-                width="17"
+                width="18"
                 height="25"
                 fill="currentColor"/>
             </button>
@@ -62,7 +78,7 @@ export function Search() {
     <div className={modal? 'visible' : 'hidden'}>
     <Modal onClose={() => {setModal(false)}}>
       <div className = 'fixed z-20'>
-        <Filters searchInputData= {searchValue} filtersIsVisible = {setModal}/>
+        <Filters filtersIsVisible = {setModal}/>
       </div>
     </Modal>
     </div>
