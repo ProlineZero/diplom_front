@@ -66,7 +66,7 @@ export function Card({data}: ICardProps) {
           <div className="p-4 m-3 bg-red-600 rounded-lg">
               <div className="h-20">
                 <p className="text-lg font-bold text-red-100 leading-tight">
-                  {data.name} <br/> {data.engine_capacity} л. {data.engine_power} л.с.
+                  {data.name} <br/> {data.engine_capacity != null ? data.engine_capacity + " л." : "" } {data.engine_power != null ? data.engine_power + " л.c." : "" }
                 </p> 
               </div>
               <p className="text-lg text-red-100">

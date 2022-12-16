@@ -8,6 +8,7 @@ export function Loading() {
 
     <div className='fixed left-[60%] -translate-x-1/2 top-1/2 -translate-y-1/2'>
       <h1 className = 'text-2xl'>Загрузка</h1>
+      <br/>
       <HandySvg
         src={loadingIconSrc}
         className="m-auto"

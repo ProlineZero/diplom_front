@@ -61,9 +61,20 @@ import { rename } from "fs"
 const sorting: IItem[] = [
   { id: 1, name: 'По возрастанию мощности' },
   { id: 2, name: 'По убыванию мощности' },
+  { id: 3, name: 'По убыванию объема двигателя' },
+  { id: 3, name: 'По возрастанию объема двигателя' },
+  { id: 5, name: 'Сначала новые' },
+  { id: 6, name: 'Сначала старые' },
 ]
 
-const rename_sorting:{[key:string]:string} = {"По возрастанию мощности":"engine_power", 'По убыванию мощности':'-engine_power'}
+const rename_sorting:{[key:string]:string} = {
+  "По возрастанию мощности":"engine_power",
+  'По убыванию мощности':'-engine_power',
+  'По возрастанию объема двигателя' : 'engine_capacity',
+  'По убыванию объема двигателя': '-engine_capacity',
+  'Сначала новые' : '-year_start',
+  'Сначала старые' : 'year_start',
+}
 interface IFiltersProps {
   searchInputData: string
   filtersIsVisible: React.Dispatch<React.SetStateAction<boolean>>
