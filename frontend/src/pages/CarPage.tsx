@@ -27,21 +27,32 @@ export function CarPage() {
 
   }
 
-  function get_PDF() {
+  function getPDF() {
 
   }
 
 
   const user = useSelector((state:any) => state.user)
 
-  function set_to_favorites() {
+
+  const [isLiked, setIsLiked] = useState<boolean>()
+  async function checkIsLiked() {
+    const response = await axios.post<{success:boolean}>('https://carguider.ru/api/is-car-in-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: id})
+   setIsLiked(response.data.success)
+  }
+
+  useEffect(() => {
+    checkIsLiked()
+  }, [isLiked])
+
+  function set_to_favorites(btnLikeStyle: string) {
     if (localStorage.getItem('jwt')) {
       if (btnLikeStyle == btnNotLiked) {
-        setBtnLikeStyle(btnLiked)
+        setIsLiked(true)
         axios.post('https://carguider.ru/api/add-to-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: id})
       } else {
         // console.log('ДАДАДА')
-        setBtnLikeStyle(btnNotLiked)
+        setIsLiked(false)
         axios.post('https://carguider.ru/api/delete-from-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: id})
       }
     } else {
@@ -91,8 +102,8 @@ export function CarPage() {
         </div>
 
         <div className= "fixed w-[50%] h-[60%] top-0">
-          <button className= {btnLikeStyle}
-          onClick={() => set_to_favorites()}>
+          <button className= {isLiked? btnLiked : btnNotLiked}
+          onClick={() => set_to_favorites(isLiked? btnLiked : btnNotLiked)}>
             <HandySvg
                 src={likeIconSrc}
                 className="m-auto"
@@ -102,7 +113,7 @@ export function CarPage() {
           </button>
         
         <button className= "absolute left-[81%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-gray-400 bg-gray-100 rounded-full hover:text-gray-700"
-          onClick={() => get_PDF()}>
+          onClick={() => getPDF()}>
             <HandySvg
                 src={documentIconSrc}
                 className="m-auto"
@@ -208,22 +219,6 @@ export function CarPage() {
       <div className="block py-2 text-sm lg:text-base lg:leading-none xl:text-lg 2xl:text-xl 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
         <small className = 'text-gray-500'>Задние тормоза:<br/></small><small>{(car.back_brakes != null) ? car.back_brakes : 'Отсутствует'}</small>
       </div>
-
-     
-
-     
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
 
       </div> 
       

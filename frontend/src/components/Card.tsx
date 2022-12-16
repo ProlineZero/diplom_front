@@ -26,14 +26,14 @@ export function Card({data}: ICardProps) {
     checkIsLiked()
   }, [isLiked])
 
-  function set_to_favorites() {
+  function set_to_favorites( btnLikeStyle: string) {
     if (localStorage.getItem('jwt')) {
       if (btnLikeStyle == btnNotLiked) {
-        setBtnLikeStyle(btnLiked)
+        setIsLiked(true)
         axios.post('https://carguider.ru/api/add-to-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
       } else {
         // console.log('ДАДАДА')
-        setBtnLikeStyle(btnNotLiked)
+       setIsLiked(false)
         axios.post('https://carguider.ru/api/delete-from-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
       }
     } else {
@@ -45,11 +45,11 @@ export function Card({data}: ICardProps) {
 
   const btnLiked = "w-10 h-10 text-base font-medium bg-red-600 rounded-full text-red-400"
   const btnNotLiked = "w-10 h-10 text-base font-medium text-red-100 bg-red-600 rounded-full "
-  console.log('car_id: ', data.id, ' state: ', isLiked)
-  const correctBtnLikeStyle = isLiked? btnLiked : btnNotLiked
+  // console.log('car_id: ', data.id, ' state: ', isLiked)
+  // const correctBtnLikeStyle = isLiked? btnLiked : btnNotLiked
 
   const [promtAutho, setPromtAutho] = useState(false)
-  const [btnLikeStyle, setBtnLikeStyle] = useState(isLiked? btnLiked : btnNotLiked)
+  // const [btnLikeStyle, setBtnLikeStyle] = useState(isLiked? btnLiked : btnNotLiked)
   
 
   return (
@@ -77,8 +77,8 @@ export function Card({data}: ICardProps) {
                   <p className="text-red-100">
                       {data.year_start} - {(data.year_end != null) ? (String(data.year_end)) : 'н.в.'}
                   </p>
-                  <button type="button" className={btnLikeStyle}
-                  onClick={() => set_to_favorites() }>
+                  <button type="button" className={isLiked? btnLiked : btnNotLiked}
+                  onClick={() => set_to_favorites(isLiked? btnLiked : btnNotLiked) }>
                     <HandySvg
                         src={likeIconSrc}
                         className="m-auto"

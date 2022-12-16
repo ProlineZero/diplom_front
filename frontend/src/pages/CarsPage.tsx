@@ -34,8 +34,10 @@ export function CarsPage() {
       console.log('Refetching cars')
       try {
       setNotFounded(false)
-      setCardsIsVisible(false)
-      setLoading(true)
+      if(offset == 0) {
+        setCardsIsVisible(false)
+        setLoading(true)
+      }
       const response = await axios.post<ICard[]>('https://carguider.ru/api/get-cars-list/', {...filters, limit: 20, offset: offset}).finally(() => setFetching(false))
       console.log('Response: ', response)
       console.log('fetching: ', fetching)
@@ -53,7 +55,7 @@ export function CarsPage() {
         console.log('error')
       } finally {
         setFetching(false)
-        dispatch({type:"set/fetchCarsOffset", payload: cards.length})
+        dispatch({type:"set/fetchCarsOffset", payload: (offset == 0)? 20 : cards.length})
       }
 
   }
@@ -88,7 +90,7 @@ export function CarsPage() {
       
       <div className=" bg-fixed ml-[170px] sm:ml-[17%] w-[83%] px-4 py-16">
           
-          {notFounded && <div className='z-40 fixed left-[60%] -translate-x-1/2 top-1/2 -translate-y-1/2'>
+          {notFounded && <div className=' fixed left-[60%] -translate-x-1/2 top-1/2 -translate-y-1/2'>
             <h1 className = 'text-2xl text-gray-600'>Ничего не найдено</h1>
           </div>}
           {cardsIsVisible && <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 ">

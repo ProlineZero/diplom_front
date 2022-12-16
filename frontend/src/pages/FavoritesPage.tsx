@@ -64,10 +64,10 @@ export function FavoritesPage() {
       <Navigation numPressedBtn = {1} searchIsVisible = {false}/>
       <section className="">
       <div className=" bg-fixed ml-[170px] sm:ml-[17%] w-[83%] px-4 py-16">
-          {notFounded && <div className='z-40 fixed left-[60%] -translate-x-1/2 top-1/2 -translate-y-1/2'>
+          {notFounded && <div className=' fixed left-[60%] -translate-x-1/2 top-1/2 -translate-y-1/2'>
             <h1 className = 'text-2xl text-gray-600'>Список избранного пуст</h1>
           </div>}
-          {!localStorage.getItem('jwt') && <div className='z-40 fixed left-[60%] -translate-x-1/2 top-1/2 -translate-y-1/2'>
+          {!localStorage.getItem('jwt') && <div className=' fixed left-[60%] -translate-x-1/2 top-1/2 -translate-y-1/2'>
             <h1 className = 'text-2xl text-gray-600'>Необходимо авторизоваться</h1>
           </div>}
           {cardsIsVisible && localStorage.getItem('jwt') && <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 ">
