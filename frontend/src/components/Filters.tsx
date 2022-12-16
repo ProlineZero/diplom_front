@@ -269,6 +269,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
 
   const dispatch = useDispatch()
   useEffect(() => {
+    dispatch({type:"clearFilters"});
     dispatch({type:"filters/set/", payload: filters})
   }, [selectedFilters])
 
@@ -362,7 +363,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
               </div>
               <div className = "m-2" >
               <button className= "bg-gray-200 hover:bg-gray-300 text-gray-600 px-3 py-1  rounded-full text-base"
-              onClick={() => {setClearAllComboboxes(true); setTimeout(() => setClearAllComboboxes(false), 200); dispatch({type:"clearFilters"}); setBrand(undefined); setModel(undefined);}}>
+              onClick={() => {setClearAllComboboxes(true); setTimeout(() => setClearAllComboboxes(false), 200); setBrand(undefined); setModel(undefined);}}>
                   Сбросить
               </button>
               </div>
