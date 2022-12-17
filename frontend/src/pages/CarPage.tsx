@@ -1,39 +1,26 @@
 import React, { useState, useEffect } from "react"
-import testSrc from "../icons/example1.jpg"
 import likeIconSrc from "../icons/like.svg"
-import documentIconSrc from "../icons/document.svg"
 import {HandySvg} from "handy-svg"
 import axios from 'axios';
 import { useParams } from 'react-router-dom'
-import { ICar, IProduct } from '../models';
+import { ICar } from '../models';
 import { Navigation } from '../components/Navigation';
 import { Modal } from "../components/Modal";
 import { useSelector } from "react-redux";
 import { delay } from "../functions/common";
 
 
-
-
 export function CarPage() {
 
   const [car, setCar] = useState<ICar>(Object)
-
   const { id } = useParams()
-  
-  async function fetchCar() {
 
+  async function fetchCar() {
     const response = await axios.get<ICar>('https://carguider.ru/api/cars-detail/' + String(id))
     setCar(response.data)
-
   }
-
-  function getPDF() {
-
-  }
-
 
   const user = useSelector((state:any) => state.user)
-
 
   const [isLiked, setIsLiked] = useState(false)
   async function checkIsLiked() {
@@ -79,15 +66,9 @@ export function CarPage() {
   return (
     <>
 
-      
-
-      
       <Navigation searchIsVisible = {false}/>
-      
-
+    
       <div className="fixed bg-white w-[70%] h-[80%] left-[58%] -translate-x-1/2 top-[55%] -translate-y-1/2 rounded-3xl ">
-
-
       <div className= "fixed bg-gray-100 w-full h-[60%] rounded-3xl border-l-2 border-r-2 border-red-600 shadow-xl shadow-black/50">
       <div className='absolute grid gap-0 grid-cols-2 grid-rows-1 w-full h-full '>
 
@@ -102,29 +83,18 @@ export function CarPage() {
           <h1>{car.name}</h1>
         </div>
 
-        <div className= "fixed w-[50%] h-[60%] top-0">
-          <button className= {isLiked? btnLiked : btnNotLiked}
-          onClick={() => set_to_favorites(isLiked? btnLiked : btnNotLiked)}>
-            <HandySvg
-                src={likeIconSrc}
-                className="m-auto"
-                width="40"
-                height="40"
-                fill="currentColor"/>
-          </button>
-        
-        {/* <button className= "absolute left-[81%] -translate-x-1/2 top-[90%] -translate-y-1/2 font-medium text-gray-400 bg-gray-100 rounded-full hover:text-gray-700"
-          onClick={() => getPDF()}>
-            <HandySvg
-                src={documentIconSrc}
-                className="m-auto"
-                width="40"
-                height="40"
-                fill="currentColor"/>
-          </button> */}
-        </div>
+      <div className= "fixed w-[50%] h-[60%] top-0">
+        <button className= {isLiked? btnLiked : btnNotLiked}
+        onClick={() => set_to_favorites(isLiked? btnLiked : btnNotLiked)}>
+          <HandySvg
+              src={likeIconSrc}
+              className="m-auto"
+              width="40"
+              height="40"
+              fill="currentColor"/>
+        </button>
+      </div>
 
-      
       </div>
         
       </div>
@@ -233,7 +203,5 @@ export function CarPage() {
       </Modal>}
       
     </>
-
-
   )
 }

@@ -12,9 +12,7 @@ export function Modal({children, onClose, transparency}: ModalProps) {
       <div
         className = "fixed z-20 bg-black/50 left-0 top-0 w-full h-full" onClick={onClose}
       />
-      {/* <div className='z-20'> */}
-        {children}
-      {/* </div> */}
+      {children}
     </>
     
      

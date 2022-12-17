@@ -1,20 +1,8 @@
 import { Fragment, useState, useRef, useEffect} from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { Interface } from 'readline'
 import {IItem, emptyItem} from '../models'
-import { useHref } from 'react-router-dom'
 
-
-
-// const list: IItem[] = [
-//   { id: 1, name: 'Wade Cooper' },
-//   { id: 2, name: 'Arlene Mccoy' },
-//   { id: 3, name: 'Devon Webb' },
-//   { id: 4, name: 'Tom Cook' },
-//   { id: 5, name: 'Tanya Fox' },
-//   { id: 6, name: 'Hellen Schmidt' },
-// ]
 
 interface ComboboxProps {
   list: IItem[]
@@ -29,10 +17,6 @@ interface ComboboxProps {
 export function MyCombobox({list, placeholder,isActive = true, clearInput = false, setItem, selectedItem}: ComboboxProps) {
   const [selected, setSelected] = useState('')
   const [query, setQuery] = useState('')
-
-  const testRef = useRef()
-
-  const b = true
 
   const filteredPeople =
     query === ''

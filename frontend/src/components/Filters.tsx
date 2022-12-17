@@ -3,8 +3,6 @@ import { useDispatch } from "react-redux/es/hooks/useDispatch"
 import {IItem, IFilters, IMinMax, emptyItem} from '../models'
 import { MyCombobox } from './MyCombobox'
 import axios from 'axios'
-import { rename } from "fs"
-
 
 
 const sorting: IItem[] = [
@@ -28,7 +26,6 @@ interface IFiltersProps {
   filtersIsVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-
 export function Filters({filtersIsVisible}: IFiltersProps) {
   
   const [clearAllComboboxes, setClearAllComboboxes] = useState(false)
@@ -37,7 +34,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   const engineSizes: IItem[] = []
   const enginePowers: IItem[] = []
   const yearsRelease: IItem[] = []
-
 
   //стейты для выбранного значени каждого фильтра
   const [brand, setBrand] = useState<IItem>()
@@ -74,7 +70,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
 
   
   async function fetchBrands() {
-    // const response: AxiosResponse<IItem[], any> 
     if (country && country.id != -1) {
       const response = await axios.get<IItem[]>(`https://carguider.ru/api/get-brands/${country.id}/`)
       setBrands(response.data)
@@ -92,8 +87,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
     fetchBrands()
   }, [country])
 
-
-
   async function fetchBodies() {
     const response = await axios.get<IItem[]>('https://carguider.ru/api/get-all-body-types/')
     setBodies(response.data)
@@ -102,7 +95,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   useEffect(() => {
     fetchBodies()
   }, [])
-
 
   async function fetchModels() {
     if (brand && brand.id != -1) {
@@ -116,7 +108,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   useEffect(() => {
     fetchModels()
   }, [brand])
-
 
   async function fetchEngineTypes() {
     const response = await axios.get<IItem[]>('https://carguider.ru/api/get-all-engine-types/')
@@ -151,9 +142,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
     fetchGenerations()
   }, [model])
 
-
-
-
   async function fetchCountries() {
     const response = await axios.get<IItem[]>('https://carguider.ru/api/get-countries/')
     setCountries(response.data)
@@ -162,7 +150,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   useEffect(() => {
     fetchCountries()
   }, [])
-
 
   async function fetchTransmissions() {
     const response = await axios.get<IItem[]>('https://carguider.ru/api/get-all-transmission-types/')
@@ -173,7 +160,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
     fetchTransmissions()
   }, [])
 
-
   async function fetchEngineSizeMinMax() {
     const response = await axios.get<IMinMax>('https://carguider.ru/api/get-engine-capacity-info/')
     setEngineSizeMinMax(response.data)
@@ -183,10 +169,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
     fetchEngineSizeMinMax()
   }, [])
   
-
-
-
-
   async function fetchEnginePowerMinMax() {
     const response = await axios.get<IMinMax>('https://carguider.ru/api/get-engine-power-info/')
     ///сюда вставаить цикл
@@ -197,8 +179,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
     fetchEnginePowerMinMax()
   }, [])
   
-  
-
   async function fetchYearMinMax() {
     const response = await axios.get<IMinMax>('https://carguider.ru/api/get-year-start-info/')
     setYearMinMax(response.data)
@@ -219,7 +199,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
 
     if (enginePowerMinMax) {
       enginePowers.push({id:0, name: String(enginePowerMinMax.min)})
-      for (let i = enginePowerMinMax.min + 8, id = 1; i <= enginePowerMinMax.max; i += 10, id++) {
+      for (let i = enginePowerMinMax.min + 9, id = 1; i <= enginePowerMinMax.max; i += 10, id++) {
         enginePowers.push({id, name: String(i)})
       }
     }
@@ -236,9 +216,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   }, [yearMinMax])
 
     
-
-
-
   const filters:IFilters = {
     name: '',
     country: country?.id,
@@ -269,12 +246,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
     dispatch({type:"filters/set/", payload: filters})
   }, [selectedFilters])
 
-
-
-//////////////////////////////////////////////
-  
-
-  
   
   return (
     <>

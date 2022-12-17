@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Card } from '../components/Card'
 import { Loading } from '../components/Loading';
 import { Navigation } from '../components/Navigation'
-import { ICard, IFilters} from '../models';
+import { ICard } from '../models';
 
 
 export function CarsPage() {
@@ -17,16 +17,10 @@ export function CarsPage() {
   const [notFounded, setNotFounded] = useState(false)
   const [cardsIsVisible, setCardsIsVisible] = useState(true)
 
-
   const dispatch = useDispatch()
-
   const filters =  useSelector((state:any) => state.filters)
   const fetchCarsOffset = useSelector((state:any) => state.fetchCarsOffset)
 
-
-
-  
-  
 
   async function fetchCars(offset:number = 0) {
 
@@ -59,11 +53,7 @@ export function CarsPage() {
   }
 
   useEffect(() => {
-
       fetchCars(fetchCarsOffset)
-
-
-
   }, [filters, fetching])
 
   useEffect(()=> {
@@ -80,7 +70,6 @@ export function CarsPage() {
     }
   }
   
-
 
   return (
 
@@ -99,7 +88,6 @@ export function CarsPage() {
           {loading && <Loading/>}
         </div>
       
-
     </>
     
   )

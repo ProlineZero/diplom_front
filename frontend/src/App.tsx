@@ -15,11 +15,9 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={ <CarsPage/> } />
-        {/* <Route path="/cars" exact component={ <CarsPage/> } /> */}
         <Route path="/authorization" element={ <AuthorizationPage/> } />
         <Route path="/registration" element={ <RegistrationPage/> } />
         <Route path="/favorites" element={ <FavoritesPage/> } />
-        {/* <Route path= "/cars/:id" element={ <CarPage id = {23}/> } /> */}
         <Route path= "/cars/:id" element = {<CarPage/>} />
       </Routes> 
       

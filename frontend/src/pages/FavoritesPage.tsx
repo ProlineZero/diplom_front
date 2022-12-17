@@ -2,28 +2,20 @@ import React, { useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios'
 import { Card } from '../components/Card'
 import { Navigation } from '../components/Navigation'
-import { ICard, IProduct } from '../models';
-import { useSelector, useDispatch } from 'react-redux/es/exports';
+import { ICard } from '../models';
+import { useSelector } from 'react-redux/es/exports';
 import { Loading } from '../components/Loading';
 
 export function FavoritesPage() {
 
   const lim = 20
   const [favCards, setFavCards] = useState<ICard[]>([])
-  const [fetching, setFetching] = useState(false)
 
   const [loading, setLoading] = useState(false)
   const [notFounded, setNotFounded] = useState(false)
   const [cardsIsVisible, setCardsIsVisible] = useState(true)
-
-  const dispatch = useDispatch()
-
-  const filters = useSelector((state:any) => state.filters)
   
   const fetchCarsOffset = useSelector((state:any) => state.fetchCarsOffset)
-
-
-  
 
   async function fetchCars(offset:number = 0) {
 
@@ -32,7 +24,7 @@ export function FavoritesPage() {
         setNotFounded(false)
         setCardsIsVisible(false)
         setLoading(true)
-        const response = await axios.post<ICard[]>('https://carguider.ru/api/get-favorites/', {user_jwt: localStorage.getItem('jwt')}).finally(() => setFetching(false))
+        const response = await axios.post<ICard[]>('https://carguider.ru/api/get-favorites/', {user_jwt: localStorage.getItem('jwt')})
         const cardsInState = (offset == 0) ? [] : [...favCards]
         setFavCards(cardsInState.concat(response.data))
         setLoading(false)
@@ -54,7 +46,6 @@ export function FavoritesPage() {
   useEffect(() => {
       fetchCars(fetchCarsOffset)
   }, [])
-
 
   return (
 

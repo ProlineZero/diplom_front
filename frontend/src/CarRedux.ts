@@ -1,8 +1,5 @@
-// import { configureStore } from '@reduxjs/toolkit'
-import { stat } from "fs"
 import { createStore } from "redux"
-import { Filters } from "./components/Filters"
-import { IFilters, emptyItem, IUser} from "./models"
+import { IFilters, IUser} from "./models"
 
 const defaultFilters: IFilters = {
   name: '',
