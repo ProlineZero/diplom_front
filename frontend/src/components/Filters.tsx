@@ -11,7 +11,7 @@ const sorting: IItem[] = [
   { id: 1, name: 'По возрастанию мощности' },
   { id: 2, name: 'По убыванию мощности' },
   { id: 3, name: 'По убыванию объема двигателя' },
-  { id: 3, name: 'По возрастанию объема двигателя' },
+  { id: 4, name: 'По возрастанию объема двигателя' },
   { id: 5, name: 'Сначала новые' },
   { id: 6, name: 'Сначала старые' },
 ]
@@ -151,7 +151,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
     fetchGenerations()
   }, [model])
 
-  // console.log(generations)
+
 
 
   async function fetchCountries() {
@@ -210,7 +210,6 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   }, [])
 
   useEffect(() => {
-    console.log('engineSizeMinMax:', engineSizeMinMax)
     if (engineSizeMinMax) 
     for (let i = engineSizeMinMax.min, id = 0; i <= engineSizeMinMax.max; i += 0.1, id++) {
       engineSizes.push({id, name: String(i.toFixed(1))})
@@ -238,10 +237,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
 
     
 
-  
-  // console.log(rename_sorting[rename_sorting.findIndex((element) => element.name == sort.name)].rename)
 
-  // console.log(startYear.name, 'search: ', searchInputData)
 
   const filters:IFilters = {
     name: '',

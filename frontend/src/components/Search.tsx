@@ -18,7 +18,7 @@ export function Search() {
   };
 
   function resetInputField() {
-    console.log('RESET search')
+
     dispatch({type:'filters/set/search_text', payload: ""})
     setInputValue("")
   };
@@ -33,7 +33,7 @@ export function Search() {
 
 
 
-  // console.log(inputData)
+
 
   return (
     <>

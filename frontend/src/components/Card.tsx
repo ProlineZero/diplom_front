@@ -34,7 +34,7 @@ export function Card({data}: ICardProps) {
         setIsLiked(true)
         axios.post('https://carguider.ru/api/add-to-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
       } else {
-        // console.log('ДАДАДА')
+
        setIsLiked(false)
         axios.post('https://carguider.ru/api/delete-from-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
       }
@@ -47,7 +47,6 @@ export function Card({data}: ICardProps) {
 
   const btnLiked = "w-10 h-10 text-base font-medium bg-red-600 rounded-full text-red-400"
   const btnNotLiked = "w-10 h-10 text-base font-medium text-red-100 bg-red-600 rounded-full "
-  // console.log('car_id: ', data.id, ' state: ', isLiked)
   // const correctBtnLikeStyle = isLiked? btnLiked : btnNotLiked
 
   const [promtAutho, setPromtAutho] = useState(false)

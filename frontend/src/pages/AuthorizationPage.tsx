@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import { Navigation } from '../components/Navigation'
 import { wait } from '@testing-library/user-event/dist/utils'
 import { delay } from '../functions/common'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { IUser } from "../models"
 
 export function AuthorizationPage() {
@@ -38,10 +38,10 @@ export function AuthorizationPage() {
     const response = await axios.post<{jwt: string}>('https://carguider.ru/api/login/', user)
     setAutStatus(response? true: false)
     setJwt(response.data.jwt)
-    console.log('autStatus: ', response.data)
     tryAuthorization()
-    } catch (error) {
-      console.log('error')
+    } catch (e: unknown) {
+      const error = e as AxiosError
+      console.log(error.message)
     } 
   }
 
@@ -98,5 +98,3 @@ export function AuthorizationPage() {
     
   )
 }
-
-//console.log('email: ', emailInput, ' password: ', passwordInput)

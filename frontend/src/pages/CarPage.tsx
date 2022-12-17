@@ -53,7 +53,6 @@ export function CarPage() {
         setIsLiked(true)
         axios.post('https://carguider.ru/api/add-to-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: id})
       } else {
-        // console.log('ДАДАДА')
         setIsLiked(false)
         axios.post('https://carguider.ru/api/delete-from-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: id})
       }
@@ -158,7 +157,7 @@ export function CarPage() {
       </div>
 
       <div className="block p-2 text-sm md:text-base md:leading-none xl:text-base 2xl:text-lg 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Масса:<br/></small><small>{(car.weight != null) ? car.weight : 'Отсутствует'} кг</small>
+        <small className = 'text-gray-500'>Масса:<br/></small><small>{(car.weight != null) ? (car.weight + ' кг') : 'Отсутствует'}</small>
       </div>
 
       <div className="block p-2 text-sm md:text-base md:leading-none xl:text-base 2xl:text-lg 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
@@ -182,7 +181,7 @@ export function CarPage() {
       </div>
 
       <div className="block p-2 text-sm md:text-base md:leading-none xl:text-base 2xl:text-lg 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">
-        <small className = 'text-gray-500'>Макс. скорость:<br/></small><small>{(car.max_speed != null) ? car.max_speed : 'Отсутствует'} км\ч</small>
+        <small className = 'text-gray-500'>Макс. скорость:<br/></small><small>{(car.max_speed != null) ? (car.max_speed + ' км/ч') : 'Отсутствует'}</small>
       </div>
 
       <div className="block p-2 text-sm md:text-base md:leading-none xl:text-base 2xl:text-lg 2xl:leading-none xl:leading-none leading-none font-medium text-center border-2 border-t-0 border-l-0 rounded-t-none rounded-l-none rounded-3xl border-red-500/50">

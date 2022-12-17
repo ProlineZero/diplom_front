@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { Card } from '../components/Card'
 import { Navigation } from '../components/Navigation'
 import { ICard, IProduct } from '../models';
@@ -22,20 +22,17 @@ export function FavoritesPage() {
   
   const fetchCarsOffset = useSelector((state:any) => state.fetchCarsOffset)
 
-  console.log('Filters: ',filters, 'offset: ', fetchCarsOffset)
+
   
 
   async function fetchCars(offset:number = 0) {
 
-      console.log('Refetching cars')
       if (localStorage.getItem('jwt')) {
         try {
         setNotFounded(false)
         setCardsIsVisible(false)
         setLoading(true)
         const response = await axios.post<ICard[]>('https://carguider.ru/api/get-favorites/', {user_jwt: localStorage.getItem('jwt')}).finally(() => setFetching(false))
-        console.log('Response: ', response)
-        console.log('fetching: ', fetching)
         const cardsInState = (offset == 0) ? [] : [...favCards]
         setFavCards(cardsInState.concat(response.data))
         setLoading(false)
@@ -46,8 +43,9 @@ export function FavoritesPage() {
           setNotFounded(false)
         }
         
-        } catch (error) {
-          console.log('error')
+        } catch (e: unknown) {
+          const error = e as AxiosError
+          console.log(error.message)
         } 
       }
 

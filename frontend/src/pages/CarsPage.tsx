@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { Card } from '../components/Card'
@@ -23,25 +23,23 @@ export function CarsPage() {
   const filters =  useSelector((state:any) => state.filters)
   const fetchCarsOffset = useSelector((state:any) => state.fetchCarsOffset)
 
-  // console.log('JWT: ', localStorage.getItem('jwt'))
+
 
   
   
 
   async function fetchCars(offset:number = 0) {
 
-      console.log('Refetching cars')
-      console.log('Filters: ',filters, 'offset: ', fetchCarsOffset)
       try {
       setNotFounded(false)
       if(offset == 0) {
         setCardsIsVisible(false)
         setLoading(true)
       }
-      const response = await axios.post<ICard[]>('https://carguider.ru/api/get-cars-list/', {...filters, limit: 20, offset: offset}).finally(() => setFetching(false))
-      console.log('Response: ', response)
+      const response = await axios.post<ICard[]>('https://carguider.ru/api/get-cars-list/', {...filters, limit: 20, offset: offset})
       const cardsInState = (offset == 0) ? [] : [...cards]
       setCards(cardsInState.concat(response.data))
+
       setLoading(false)
       setCardsIsVisible(true)
       if (response.data.length == 0 && offset == 0) {
@@ -50,8 +48,9 @@ export function CarsPage() {
         setNotFounded(false)
       }
       
-      } catch (error) {
-        console.log('error')
+      } catch (e: unknown) {
+        const error = e as AxiosError
+        console.log(error.message)
       } finally {
         setFetching(false)
         dispatch({type:"set/fetchCarsOffset", payload: (offset == 0)? 20 : cards.length})
@@ -62,6 +61,8 @@ export function CarsPage() {
   useEffect(() => {
 
       fetchCars(fetchCarsOffset)
+
+
 
   }, [filters, fetching])
 
@@ -74,8 +75,8 @@ export function CarsPage() {
 
   const scrollHandler = (event:any) => {
     if (event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 200) {
-      // console.log('EndPage')
-      setFetching(true)
+      setTimeout(() => setFetching(false), 100) 
+      setTimeout(() => setFetching(true), 200) 
     }
   }
   

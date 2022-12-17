@@ -40,9 +40,7 @@ export function RegistrationPage() {
     const response = await axios.post<{success: boolean, jwt:string}>('https://carguider.ru/api/register/', user)
     setRegStatus(response.data.success)
     setJwt(response.data.jwt)
-    console.log('regStatus: ', response.data)
     tryRegistration()
-    // dispatch({type:"user/set/jwt", payload: jwt})
   }
 
   useEffect(() => {
@@ -102,4 +100,3 @@ export function RegistrationPage() {
     
   )
 }
-//console.log('email: ', emailInput, ' password: ', passwordInput, ' firstname: ', firstNameInput, ' lastname: ', lastNameInput)
