@@ -308,7 +308,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
           </div>
           <div className='m-2 z-10'>
             <MyCombobox list = {countries} placeholder = "Страна"
-            setItem={setCountry} clearInput = {clearAllComboboxes} selectedItem = {country}/> 
+            setItem={setCountry} clearInput = {clearAllComboboxes} selectedItem = {country} isActive = {!brand || brand.id == -1}/> 
           </div>
           <div className='m-2 z-10'>
             <MyCombobox list = {driveTypes} placeholder = "Привод"
@@ -330,7 +330,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
               </div>
               <div className = "m-2" >
               <button className= "bg-gray-200 hover:bg-gray-300 text-gray-600 px-3 py-1  rounded-full text-base"
-              onClick={() => {setClearAllComboboxes(true); setTimeout(() => setClearAllComboboxes(false), 200); setBrand(undefined); setModel(undefined);}}>
+              onClick={() => {setClearAllComboboxes(true); setTimeout(() => setClearAllComboboxes(false), 200); setBrand(undefined); setModel(undefined); setCountry(undefined)}}>
                   Сбросить
               </button>
               </div>

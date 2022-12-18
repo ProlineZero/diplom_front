@@ -31,7 +31,7 @@ export function MyCombobox({list, placeholder,isActive = true, clearInput = fals
     if (clearInput) {
       setSelected('')
       setQuery('')
-      setItem(emptyItem)
+      setItem(undefined)
     }
   }, [clearInput])
 
