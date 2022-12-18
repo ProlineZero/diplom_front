@@ -1,5 +1,5 @@
 import { createStore } from "redux"
-import { IFilters, IUser} from "./models"
+import { IFilters } from "./models"
 
 const defaultFilters: IFilters = {
   name: '',
@@ -24,18 +24,9 @@ const defaultFilters: IFilters = {
   order_by: undefined,
 }
 
-const defaultUser: IUser = {
-  jwt: undefined,
-  email: undefined,
-  password: undefined,
-  first_name: undefined,
-  last_name: undefined,
-}
-
 const defaultState = {
   filters: defaultFilters,
   fetchCarsOffset: 0,
-  user: defaultUser
 }
 
 function carReducer(state = defaultState, action:any) {
@@ -51,8 +42,6 @@ function carReducer(state = defaultState, action:any) {
       return {...state, filters: defaultFilters}
     case 'clearFetchCarsOffset':
       return {...state, fetchCarsOffset: 0}
-      case 'user/set/jwt':
-        return {... state, user: {... state.filters, jwt: action.payload}}
   
     default:
       return state
