@@ -30,7 +30,7 @@ export function CarsPage() {
         setCardsIsVisible(false)
         setLoading(true)
       }
-      const response = await axios.post<ICard[]>('https://carguider.ru/api/get-cars-list/', {...filters, limit: 20, offset: offset})
+      const response = await axios.post<ICard[]>('http://192.168.1.11/api/get-cars-list/', {...filters, limit: 20, offset: offset})
       const cardsInState = (offset == 0) ? [] : [...cards]
       setCards(cardsInState.concat(response.data))
 

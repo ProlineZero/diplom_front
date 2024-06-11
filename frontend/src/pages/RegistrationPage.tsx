@@ -34,7 +34,7 @@ export function RegistrationPage() {
   
 
   async function checkRegistration()  {
-    const response = await axios.post<{success: boolean, jwt:string}>('https://carguider.ru/api/register/', user)
+    const response = await axios.post<{success: boolean, jwt:string}>('http://192.168.1.11/api/register/', user)
     setRegStatus(response.data.success)
     setJwt(response.data.jwt)
     tryRegistration()
@@ -61,9 +61,9 @@ export function RegistrationPage() {
   return (
     <>
 
-      <div className="fixed bg-gray-100 w-5/12 h-1/2 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 rounded-3xl border-l-2 border-r-2 border-red-600 shadow-2xl shadow-black/50">
+      <div className="fixed bg-gray-100 w-5/12 h-1/2 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 rounded-3xl border-l-2 border-r-2 border-green-600 shadow-2xl shadow-black/50">
         <div className="container w-1/2 space-y-3 fixed inline-block text-left left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-          <h2 className="text-3xl text-center text-red-700">Car Guider</h2>
+          <h2 className="text-3xl text-center text-green-700">Guide2Cars</h2>
           <h1 className='text-2xl text-center text-gray-500'>Регистрация</h1>
           <div className="w-full">
                   <div className="flex gap-4 mb-2">
@@ -77,7 +77,7 @@ export function RegistrationPage() {
                     <InputString title='' placeholder = 'Придумайте пароль' name = 'password' setInput = {setPasswordInput}/>
                   </div>
                   <div className="flex w-full my-4">
-                  <button className=" w-full px-2 py-1 transition ease-in duration-200 uppercase rounded-full text-red-700 hover:bg-red-600 hover:text-white border-2 border-red-700 focus:outline-none"
+                  <button className=" w-full px-2 py-1 transition ease-in duration-200 uppercase rounded-full text-green-700 hover:bg-green-600 hover:text-white border-2 border-green-700 focus:outline-none"
                   onClick={() => {setClickReg(prev => prev + 1); checkRegistration()}}>
                     Зарегистрироваться
                   </button>
@@ -86,7 +86,7 @@ export function RegistrationPage() {
               <h1 className='text-green-500 text-xm text-center underline'>Регистрация успешна</h1>
             </div>
             <div className={errorReg? 'visible' : 'hidden'}>
-              <h1 className='text-red-500 text-xm text-center underline'>Пользователь с таким email уже существует</h1>
+              <h1 className='text-green-500 text-xm text-center underline'>Пользователь с таким email уже существует</h1>
             </div>
           </div>
         </div>

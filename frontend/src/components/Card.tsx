@@ -14,7 +14,7 @@ export function Card({data}: ICardProps) {
   const [isLiked, setIsLiked] = useState(false)
   async function checkIsLiked() {
     if (localStorage.getItem('jwt')){
-      const response = await axios.post<{success:boolean}>('https://carguider.ru/api/is-car-in-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
+      const response = await axios.post<{success:boolean}>('http://192.168.1.11/api/is-car-in-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
       setIsLiked(response.data.success)
     }
   }
@@ -27,11 +27,11 @@ export function Card({data}: ICardProps) {
     if (localStorage.getItem('jwt')) {
       if (btnLikeStyle == btnNotLiked) {
         setIsLiked(true)
-        axios.post('https://carguider.ru/api/add-to-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
+        axios.post('http://192.168.1.11/api/add-to-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
       } else {
 
        setIsLiked(false)
-        axios.post('https://carguider.ru/api/delete-from-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
+        axios.post('http://192.168.1.11/api/delete-from-favorites/', {user_jwt: localStorage.getItem('jwt'), car_id: data.id})
       }
     } else {
       setPromtAutho(true)
@@ -39,8 +39,8 @@ export function Card({data}: ICardProps) {
     }
   }
 
-  const btnLiked = "w-10 h-10 text-base font-medium bg-red-600 rounded-full text-red-400"
-  const btnNotLiked = "w-10 h-10 text-base font-medium text-red-100 bg-red-600 rounded-full "
+  const btnLiked = "w-10 h-10 text-base font-medium bg-green-600 rounded-full text-green-400"
+  const btnNotLiked = "w-10 h-10 text-base font-medium text-green-100 bg-green-600 rounded-full "
   const [promtAutho, setPromtAutho] = useState(false)
 
   return (
@@ -53,18 +53,18 @@ export function Card({data}: ICardProps) {
         </div>
           
           <div className = {promtAutho? 'hidden' : 'visible'}>
-            <div className="p-4 m-3 bg-red-600 rounded-lg">
+            <div className="p-4 m-3 bg-green-600 rounded-lg">
                 <div className="h-20">
-                  <p className="text-lg font-bold text-red-100 leading-tight">
+                  <p className="text-lg font-bold text-green-100 leading-tight">
                     {data.name} <br/> {data.engine_capacity != null ? data.engine_capacity + " л." : "" } {data.engine_power != null ? data.engine_power + " л.c." : "" }
                   </p> 
                 </div>
-                <p className="text-lg text-red-100">
+                <p className="text-lg text-green-100">
                   {data.country_field}
                 </p>
 
                 <div className="flex items-center justify-between ">
-                  <p className="text-red-100">
+                  <p className="text-green-100">
                     {data.year_start} - {(data.year_end != null) ? (String(data.year_end)) : 'н.в.'}
                   </p>
                   <button type="button" className={isLiked? btnLiked : btnNotLiked}

@@ -71,10 +71,10 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   
   async function fetchBrands() {
     if (country && country.id != -1) {
-      const response = await axios.get<IItem[]>(`https://carguider.ru/api/get-brands/${country.id}/`)
+      const response = await axios.get<IItem[]>(`http://192.168.1.11/api/get-brands/${country.id}/`)
       setBrands(response.data)
     } else {
-      const response = await axios.get<IItem[]>('https://carguider.ru/api/get-all-brands/')
+      const response = await axios.get<IItem[]>('http://192.168.1.11/api/get-all-brands/')
       setBrands(response.data)
     }
   }
@@ -88,7 +88,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   }, [country])
 
   async function fetchBodies() {
-    const response = await axios.get<IItem[]>('https://carguider.ru/api/get-all-body-types/')
+    const response = await axios.get<IItem[]>('http://192.168.1.11/api/get-all-body-types/')
     setBodies(response.data)
   }
 
@@ -98,7 +98,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
 
   async function fetchModels() {
     if (brand && brand.id != -1) {
-      const response = await axios.get<IItem[]>(`https://carguider.ru/api/get-models/${brand.id}/`)
+      const response = await axios.get<IItem[]>(`http://192.168.1.11/api/get-models/${brand.id}/`)
       setModels(response.data)
     } else {
       setModels([])
@@ -110,7 +110,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   }, [brand])
 
   async function fetchEngineTypes() {
-    const response = await axios.get<IItem[]>('https://carguider.ru/api/get-all-engine-types/')
+    const response = await axios.get<IItem[]>('http://192.168.1.11/api/get-all-engine-types/')
     setEngineTypes(response.data)
   }
 
@@ -120,7 +120,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
 
 
   async function fetchDriveTypes() {
-    const response = await axios.get<IItem[]>('https://carguider.ru/api/get-all-drive-types/')
+    const response = await axios.get<IItem[]>('http://192.168.1.11/api/get-all-drive-types/')
     setDriveTypes(response.data)
   }
 
@@ -131,7 +131,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
 
   async function fetchGenerations() {
     if (model && model.id != -1 ) {
-      const response = await axios.get<IItem[]>(`https://carguider.ru/api/get-generations/${model.id}/`)
+      const response = await axios.get<IItem[]>(`http://192.168.1.11/api/get-generations/${model.id}/`)
       setGenerations(response.data)
     } else {
       setGenerations([])
@@ -143,7 +143,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   }, [model])
 
   async function fetchCountries() {
-    const response = await axios.get<IItem[]>('https://carguider.ru/api/get-countries/')
+    const response = await axios.get<IItem[]>('http://192.168.1.11/api/get-countries/')
     setCountries(response.data)
   }
 
@@ -152,7 +152,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   }, [])
 
   async function fetchTransmissions() {
-    const response = await axios.get<IItem[]>('https://carguider.ru/api/get-all-transmission-types/')
+    const response = await axios.get<IItem[]>('http://192.168.1.11/api/get-all-transmission-types/')
     setTransmissions(response.data)
   }
 
@@ -161,7 +161,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   }, [])
 
   async function fetchEngineSizeMinMax() {
-    const response = await axios.get<IMinMax>('https://carguider.ru/api/get-engine-capacity-info/')
+    const response = await axios.get<IMinMax>('http://192.168.1.11/api/get-engine-capacity-info/')
     setEngineSizeMinMax(response.data)
   }
   
@@ -170,7 +170,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   }, [])
   
   async function fetchEnginePowerMinMax() {
-    const response = await axios.get<IMinMax>('https://carguider.ru/api/get-engine-power-info/')
+    const response = await axios.get<IMinMax>('http://192.168.1.11/api/get-engine-power-info/')
     ///сюда вставаить цикл
     setEnginePowerMinMax(response.data)
   }
@@ -180,7 +180,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   }, [])
   
   async function fetchYearMinMax() {
-    const response = await axios.get<IMinMax>('https://carguider.ru/api/get-year-start-info/')
+    const response = await axios.get<IMinMax>('http://192.168.1.11/api/get-year-start-info/')
     setYearMinMax(response.data)
     
   }
@@ -249,7 +249,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
   
   return (
     <>
-      <div className="fixed top-[15%] left-1/2 -translate-x-1/2 bg-white w-[50%] h-[40%] min-h-[18rem] rounded-2xl border-l-4 border-r-4 border-red-600">
+      <div className="fixed top-[15%] left-1/2 -translate-x-1/2 bg-white w-[50%] h-[40%] min-h-[18rem] rounded-2xl border-l-4 border-r-4 border-green-600">
         
         <div className= "sticky h-[15%] w-full">
           <div className = "absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2" >
@@ -323,7 +323,7 @@ export function Filters({filtersIsVisible}: IFiltersProps) {
           <div className= "sticky h-[15%] w-full">
             <div className='flex flex-row-reverse'>
               <div className = "m-2" >
-              <button className= "bg-red-600 hover:bg-red-700 text-red-100 px-3 py-1  rounded-full text-base mx-4"
+              <button className= "bg-green-600 hover:bg-green-700 text-green-100 px-3 py-1  rounded-full text-base mx-4"
               onClick={() => {setSelectedFilters(true); setTimeout(() => setSelectedFilters(false), 200); filtersIsVisible(false); dispatch({type:"clearFetchCarsOffset"}); window.scrollTo(0, 0);}}>
                   Применить
               </button>

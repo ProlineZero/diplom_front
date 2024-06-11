@@ -24,7 +24,7 @@ export function FavoritesPage() {
         setNotFounded(false)
         setCardsIsVisible(false)
         setLoading(true)
-        const response = await axios.post<ICard[]>('https://carguider.ru/api/get-favorites/', {user_jwt: localStorage.getItem('jwt')})
+        const response = await axios.post<ICard[]>('http://192.168.1.11/api/get-favorites/', {user_jwt: localStorage.getItem('jwt')})
         const cardsInState = (offset == 0) ? [] : [...favCards]
         setFavCards(cardsInState.concat(response.data))
         setLoading(false)
